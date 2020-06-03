@@ -533,5 +533,5 @@ Below is an example for specifying boundary conditions for a fluid `myfluid`.
 
    bc.regions = hot-wall
 
-   bc.hot-walls = eb
-   bc.hot-walls.eb.temperature = 800
+   bc.hot-wall = eb
+   bc.hot-wall.eb.temperature = 800
