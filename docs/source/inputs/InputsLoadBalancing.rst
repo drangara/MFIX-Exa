@@ -53,7 +53,8 @@ The following inputs must be preceded by "particles"
 | tile_size            | Maximum number of cells in each direction for (logical) tiles         |  IntVect    | 1024000,8,8  |
 |                      | in the ParticleBoxArray if dual_grid is true.                         |             |              |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
-| reduceGhostParticles | whether to remove unused ghost particles                              |    Bool     | false        |
+| reduceGhostParticles | Remove unused ghost particles from communication,                     |    Bool     | True         | 
+|                      | only supported by GPU build                                           |             |              | 
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 
 Note that when running a granular simulation, i.e., no fluid phase, :cpp:`mfix.dual_grid` must be 0. Hence,
@@ -68,7 +69,7 @@ The following inputs must be preceded by "mfix" and determine how we load balanc
 +======================+=======================================================================+=============+==============+
 | dual_grid            | If true then use the "dual_grid" approach for load balancing          |  Bool       | False        |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
-| load_balance_fluid   | Only relevant if (dual_grid); if so do we also regrid mesh data       |  Int        | 1            |
+| load_balance_fluid   | Only relevant if (dual_grid); if so do we also regrid mesh data       |  Int        | 0            |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 | load_balance_type    | What strategy to use for load balancing                               |  String     | KnapSack     |
 |                      | Options are "KnapSack", "SFC", or "Greedy"                            |             |              |
@@ -78,11 +79,26 @@ The following inputs must be preceded by "mfix" and determine how we load balanc
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 | knapsack_nmax        | Maximum number of grids per MPI process if using knapsack algorithm   |  Int        | 128          |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
-| greedy_dir           | The direction in which the Greedy algorithm cuts overloaded boxes     |  Int        | 0            |
+| greedy_dir           | The direction in which the greedy algorithm cuts overloaded boxes     |  Int        | 0            |
++----------------------+-----------------------------------------------------------------------+-------------+--------------+
+| greedy_min_grid_size | The minimum particle grid size in the greedy load balance algorithm   |  Int        | 2            |
++----------------------+-----------------------------------------------------------------------+-------------+--------------+
+| greedy_3d            | Partition particle grids in 3D with the greedy algorithhm             |  Bool       | False        |
++----------------------+-----------------------------------------------------------------------+-------------+--------------+
+| overload_tolerance*  | The ratio between the maximum workload and the average workload       |  Real       | 1.2          |
+|                      | in the greedy algorithm                                               |             |              |
++----------------------+-----------------------------------------------------------------------+-------------+--------------+
+| underload_tolerance* | The ratio between the minimum workload and the average workload       |  Real       | 0.8          |
+|                      | in the greedy algorithm                                               |             |              |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 | grid_pruning         | Remove all covered grids from the base mesh; this may result in       |  Bool       | False        |
 |                      | disjoined grids                                                       |             |              |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
+
+\* The greedy partitioning algorithm uses the tolerances to set the expected 
+workload range for each rank but doesn't strictly enforce them. The algorithm 
+creates a partition as balance as possible even if the partition doesn't 
+meet the tolerances.
 
 To allow a user to verify the breakdown of fluid grids created before running a full simulation, an input option, 
 :cpp:`mfix.only_print_grid_report` is supported. By default, it is :cpp:`False`. When set to :cpp:`True`, the run uses 
