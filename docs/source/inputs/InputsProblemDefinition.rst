@@ -101,10 +101,8 @@ The following inputs must be preceded by "mfix."
 +------------------------+-------------------------------------------------------------------+----------+---------------------+
 |                        | Description                                                       |   Type   | Default             |
 +========================+===================================================================+==========+=====================+
-| geometry               | Which type of EB geometry are we using?                           |   String |                     |
+| geometry               | Which type of amrex EB geometry are we using?                     |   String |                     |
 |                        |                                                                   |          |                     |
-|                        | To use geometry from EB checkpoint file in current directory      |          |                     |
-|                        | set value to "chkptfile"                                          |          |                     |
 +------------------------+-------------------------------------------------------------------+----------+---------------------+
 | geometry_filename      | The CSG file that defines the EB geometry                         |   String |                     |
 +------------------------+-------------------------------------------------------------------+----------+---------------------+
