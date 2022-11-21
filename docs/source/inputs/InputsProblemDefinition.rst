@@ -502,13 +502,25 @@ Initial Conditions
 ------------------
 
 Initial conditions are built from defined regions. The input names are built using the prefix `ic.`, the name of the
-region to apply the IC, and the name of the phase (e.g., `myfluid`).
+region to apply the IC, and the name of the phase (e.g., `myfluid`). The
+following inputs must be preceded by the root `ic.`.
 
-+---------------------+-----------------------------------------------------------------------+-------------+-----------+
-|                     | Description                                                           |   Type      | Default   |
-+=====================+=======================================================================+=============+===========+
-| ic.regions          | Regions used to define initial conditions.                            | String      | None      |
-+---------------------+-----------------------------------------------------------------------+-------------+-----------+
++-----------------------+------------------------------------------------------------------------+-------------+-----------+
+|                       | Description                                                            |   Type      | Default   |
++=======================+========================================================================+=============+===========+
+| regions               | Regions used to define initial conditions.                             | String      | None      |
++-----------------------+------------------------------------------------------------------------+-------------+-----------+
+| allow_regions_overlap | Flag for allowing the user to decide whether particles will be         | Bool        | 1 (yes)   |
+|                       | generated/initialized more than once on the areas where the IC regions |             |           |
+|                       | have an intersection                                                   |             |           |
++-----------------------+------------------------------------------------------------------------+-------------+-----------+
+| ranking_type          | IC regions are sorted during initialization. This input lets the user  | String      | Inputs    |
+|                       | decide the ranking criterion, which can be one of the following:       |             |           |
+|                       |                                                                        |             |           |
+|                       | * inputs -- the order in the inputs file                               |             |           |
+|                       | * volume -- the volume of each IC region                               |             |           |
+|                       | * priority -- the priority value provided by the user in the inputs    |             |           |
++-----------------------+------------------------------------------------------------------------+-------------+-----------+
 
 For a fluid phase, the following inputs can be defined.
 
@@ -529,23 +541,25 @@ For a fluid phase, the following inputs can be defined.
 
 The name of the DEM phases to be defined in the IC region and the packing must be defined.
 
-+---------------------+------------------------------------------------------------------+-------------+-----------+
-|                     | Description                                                      |   Type      | Default   |
-+=====================+==================================================================+=============+===========+
-| ic.[region].solids  | Solids type in this IC region (only one type per region allowed) | String      | None      |
-+---------------------+------------------------------------------------------------------+-------------+-----------+
-| ic.[region].packing | Specifies how auto-generated particles are placed in the IC      | String      | None      |
-|                     | region:                                                          |             |           |
-|                     |                                                                  |             |           |
-|                     | * hcp -- hex-centered packing                                    |             |           |
-|                     | * random -- random packing                                       |             |           |
-|                     | * pseudo_random                                                  |             |           |
-|                     | * oneper -- one particle per cell                                |             |           |
-|                     | * eightper -- eight particles per cell                           |             |           |
-|                     | * n-cube -- n^3 particles per cell where n is an integer         |             |           |
-|                     |                                                                  |             |           |
-|                     | (NOTE: oneper is equivalent to 1-cube and eightper to 2-cube)    |             |           |
-+---------------------+------------------------------------------------------------------+-------------+-----------+
++----------------------+------------------------------------------------------------------+-------------+-----------+
+|                      | Description                                                      |   Type      | Default   |
++======================+==================================================================+=============+===========+
+| ic.[region].solids   | Solids type in this IC region (only one type per region allowed) | String      | None      |
++----------------------+------------------------------------------------------------------+-------------+-----------+
+| ic.[region].priority | Priority value for IC regions ranking as described above         | Int         | Max       |
++----------------------+------------------------------------------------------------------+-------------+-----------+
+| ic.[region].packing  | Specifies how auto-generated particles are placed in the IC      | String      | None      |
+|                      | region:                                                          |             |           |
+|                      |                                                                  |             |           |
+|                      | * hcp -- hex-centered packing                                    |             |           |
+|                      | * random -- random packing                                       |             |           |
+|                      | * pseudo_random                                                  |             |           |
+|                      | * oneper -- one particle per cell                                |             |           |
+|                      | * eightper -- eight particles per cell                           |             |           |
+|                      | * n-cube -- n^3 particles per cell where n is an integer         |             |           |
+|                      |                                                                  |             |           |
+|                      | (NOTE: oneper is equivalent to 1-cube and eightper to 2-cube)    |             |           |
++----------------------+------------------------------------------------------------------+-------------+-----------+
 
 For each solid, the following inputs may be defined.
 
