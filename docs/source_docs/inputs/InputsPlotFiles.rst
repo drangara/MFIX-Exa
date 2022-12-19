@@ -36,6 +36,22 @@ format (for debugging).
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 
 
+The following inputs must be preceded by "mfix" and control whether the EB geometry or level set should be written out.
+
++----------------------+-----------------------------------------------------------------------+-------------+-----------+
+|                      | Description                                                           |   Type      | Default   |
++======================+=======================================================================+=============+===========+
+| write_ls             | Should we write a plotfile holding the level set and volfrac?         |   Bool      | False     |
+|                      | If true, it will only be written once,after initialization or restart |             |           |
++----------------------+-----------------------------------------------------------------------+-------------+-----------+
+| write_eb_surface     | Should we write out the EB geometry in vtp format                     |   Bool      | False     |
+|                      | If true, it will only be written once,after initialization or restart |             |           |
++----------------------+-----------------------------------------------------------------------+-------------+-----------+
+| plt_geom             | Should we write a plotfile holding the EB geometry data?              |   Bool      | False     |
+|                      | If true, it will only be written once,after initialization or restart |             |           |
++----------------------+-----------------------------------------------------------------------+-------------+-----------+
+
+
 The following inputs must be preceded by "amr" and control what variables will be written in plotfiles.
 
 +---------------------+-----------------------------------------------------------------------+-------------+-----------+
