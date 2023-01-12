@@ -20,12 +20,6 @@ format (for debugging).
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 | plot_file            | Prefix to use for plotfile output                                     |  String     | plt       |
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
-| write_ls             | Should we write a plotfile holding the level set and volfrac?         |   Bool      | False     |
-|                      | If true, it will only be written once,after initialization or restart |             |           |
-+----------------------+-----------------------------------------------------------------------+-------------+-----------+
-| write_eb_surface     | Should we write out the EB geometry in vtp format                     |   Bool      | False     |
-|                      | If true, it will only be written once,after initialization or restart |             |           |
-+----------------------+-----------------------------------------------------------------------+-------------+-----------+
 | par_ascii_file       | Prefix to use for ascii particle output                               |  String     | par       |
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 | par_ascii_int        | Frequency of ascii particle output;                                   |    Int      | -1        |
@@ -89,7 +83,22 @@ The following inputs must be preceded by "amr" and control what variables will b
 +---------------------+-----------------------------------------------------------------------+-------------+-----------+
 | plt_phase           | Save particle type to plot file                                       |    Int      | 0         |
 +---------------------+-----------------------------------------------------------------------+-------------+-----------+
-+---------------------+-----------------------------------------------------------------------+-------------+-----------+
+
+
+The following inputs must be preceded by "mfix" and control whether the EB geometry or level set should be written out.
+
++----------------------+-----------------------------------------------------------------------+-------------+-----------+
+|                      | Description                                                           |   Type      | Default   |
++======================+=======================================================================+=============+===========+
+| write_ls             | Should we write a plotfile holding the level set and volfrac?         |   Bool      | False     |
+|                      | If true, it will only be written once,after initialization or restart |             |           |
++----------------------+-----------------------------------------------------------------------+-------------+-----------+
+| write_eb_surface     | Should we write out the EB geometry in vtp format                     |   Bool      | False     |
+|                      | If true, it will only be written once,after initialization or restart |             |           |
++----------------------+-----------------------------------------------------------------------+-------------+-----------+
+| plt_geom             | Should we write a plotfile holding the EB geometry data?              |   Bool      | False     |
+|                      | If true, it will only be written once,after initialization or restart |             |           |
++----------------------+-----------------------------------------------------------------------+-------------+-----------+
 
 
 `Ascent <ascent.readthedocs.io>`_ has been integrated into MFIX-Exa for *in situ* visualization. 
