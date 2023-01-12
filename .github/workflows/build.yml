@@ -25,8 +25,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build MFiX-Exa HTML manual
+      - name: Build MFiX-Exa Documentation
         run: make -C docs -C picvva
+        env:
+          DEFAULT_BRANCH: main
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+
+      - name: Build MFiX-Exa PIC VVA Manual
+        run: make -C docs/picvva
         env:
           DEFAULT_BRANCH: main
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
