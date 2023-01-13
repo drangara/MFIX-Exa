@@ -7,7 +7,7 @@ Generating local regression test data
 Developers are encouraged to create local benchmark data for regression
 testing prior to committing code the GitLab repository.
 
-1. Create a location to store benchmark data and clone the MFiX and
+1. Create a location to store benchmark data and clone the MFIX-Exa and
    AMReX repositories.
 
    .. code:: shell
@@ -18,7 +18,7 @@ testing prior to committing code the GitLab repository.
        git clone http://mfix.netl.doe.gov/gitlab/exa/mfix.git
        git clone https://github.com/AMReX-Codes/amrex.git
 
-2. Create a local copy the regression test setup file from the MFiX
+2. Create a local copy the regression test setup file from the MFIX-Exa
    repository.
 
    .. code:: shell
@@ -43,7 +43,7 @@ testing prior to committing code the GitLab repository.
        dir = /home/user/exa-rt/amrex
        branch = development
 
-   Specify the MFiX-Exa source directory location under the ``[source]``
+   Specify the MFIX-Exa source directory location under the ``[source]``
    heading.
 
    .. code:: shell

@@ -3,7 +3,7 @@
 Nightly Tests
 =============
 
-The following regression tests are run nightly with MFiX-Exa.   The plotfiles generated in each night's test 
+The following regression tests are run nightly with MFIX-Exa.   The plotfiles generated in each night's test 
 are compared with the benchmark plotfiles using the AMReX :cpp:`fcompare` utility to compare the mesh data
 and :cpp:`particle_compare` to compare the particle data.
 

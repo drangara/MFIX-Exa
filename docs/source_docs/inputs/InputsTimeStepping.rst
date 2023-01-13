@@ -48,7 +48,7 @@ Setting the Time Step
 ---------------------
 
 There are several ways that the inputs are used to determine what time step
-is used in the evolution of the fluid-particle system in MFiX-Exa.
+is used in the evolution of the fluid-particle system in MFIX-Exa.
 
 1) In a pure particle case, the :cpp:`mfix.fixed_dt`, if specified, is only used to determine the frequency
 of outputs, it has no effect on the "dtsolid" used in the particle evaluation. If you do not specify a positive

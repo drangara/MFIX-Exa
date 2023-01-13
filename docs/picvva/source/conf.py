@@ -48,9 +48,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'MFiX-Exa'
-copyright = u'2017-2018, MFiX-Exa Team'
-author = u'MFiX-Exa Team'
+project = u'MFIX-Exa'
+copyright = u'2017-2018, MFIX-Exa Team'
+author = u'MFIX-Exa Team'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -148,8 +148,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'mfix.tex', u'MFiX-Exa Documentation',
-     u'MFiX-Exa Team', 'manual'),
+    (master_doc, 'picvva.tex', u'MFIX-Exa PIC VVA Manual',
+     u'MFIX-Exa Team', 'manual'),
 ]
 
 
@@ -158,7 +158,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'mfix', u'MFiX-Exa Documentation',
+    (master_doc, 'picvva', u'MFIX-Exa PIC VVA Manual',
      [author], 1)
 ]
 
@@ -169,7 +169,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'mfix', u'MFiX-Exa Documentation',
-     author, 'MFiX-Exa Term', "MFiX-Exa, it's MFiX... but now with more Exa!",
-     'Miscellaneous Aardvark'),
+    (master_doc, 'picvva', u'MFIX-Exa PIC VVA Manual',
+     author, 'MFIX-Exa Team', "MFIX-Exa Particle-in-Cell Verification, Validation and Applicaiton Manual",
+     'Technical Report'),
 ]

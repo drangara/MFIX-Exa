@@ -3,7 +3,7 @@
 Particles
 =========
 
-MFiX-Exa supports solid particles which are immersed in the fluid. In the
+MFIX-Exa supports solid particles which are immersed in the fluid. In the
 future particles can be implemented using the immersed-boundary method (and
 hence these IBM-particles can support non-spherical shapes, and special
 hydrodynamical and chemical interactions). But for now, particles are

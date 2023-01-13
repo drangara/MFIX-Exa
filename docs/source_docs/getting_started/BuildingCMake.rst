@@ -1,4 +1,4 @@
-Building MFiX-Exa with cmake
+Building MFIX-Exa with cmake
 ============================
 
 CMake build is a two-step process. First ``cmake`` is invoked to create
@@ -8,7 +8,7 @@ If you are new to CMake, `this short tutorial <https://hsf-training.github.io/hs
 from the HEP Software foundation is the perfect place to get started with it.
 
 
-The CMake build process for MFiX-Exa is summarized as follows:
+The CMake build process for MFIX-Exa is summarized as follows:
 
 .. highlight:: console
 
@@ -24,32 +24,32 @@ customization of the build, as described later in this section.
 If the option ``CMAKE_BUILD_TYPE`` is omitted,
 ``CMAKE_BUILD_TYPE=Release`` is assumed.
 
-There are two modes to build MFiX-Exa with cmake:
+There are two modes to build MFIX-Exa with cmake:
 
 o **SUPERBUILD (recommended):** The AMReX and AMReX-Hydro git repos are cloned and built as part
-of the MFiX-Exa build process and placed in the ``mfix/subprojects`` directory.
+of the MFIX-Exa build process and placed in the ``mfix/subprojects`` directory.
 Each of these repos can be manipulated like a regular git repo
 (you can change branches, hashes, add remotes, etc.)
 This method is strongly encouraged as it ensures that the configuration options
-for MFiX-Exa are compatible with the AMReX and AMReX-Hydro hashes that are checked out.
+for MFIX-Exa are compatible with the AMReX and AMReX-Hydro hashes that are checked out.
 
-o **STANDALONE:** MFiX-Exa source code is built separately and linked to existing
+o **STANDALONE:** MFIX-Exa source code is built separately and linked to existing
 AMReX and AMReX-Hydro repos. This is ideal for continuous integration severs (CI)
 and regression testing applications. AMReX and AMReX_Hydro library versions and
-configuration options must meet MFiX-Exa requirements.
+configuration options must meet MFIX-Exa requirements.
 
 .. note::
-   **MFiX-Exa requires CMake 3.20 or higher.**
+   **MFIX-Exa requires CMake 3.20 or higher.**
 
 .. _sec:build:superbuild:
 
 SUPERBUILD Instructions (recommended)
 -------------------------------------
 
-By default MFiX-Exa CMake looks for an existing AMReX installation on the system. If none is found, it falls back to **SUPERBUILD** mode.
-In this mode, MFiX-Exa CMake inherents AMReX CMake targets and configuration options, that is, MFiX-Exa and AMReX are configured and built as a single entity
+By default MFIX-Exa CMake looks for an existing AMReX installation on the system. If none is found, it falls back to **SUPERBUILD** mode.
+In this mode, MFIX-Exa CMake inherents AMReX CMake targets and configuration options, that is, MFIX-Exa and AMReX are configured and built as a single entity
 
-Assuming no valid AMReX installation is present on the target system, and ``AMReX_ROOT`` is not set (see :ref:`sec:build:standalone`), the following code will build MFiX-Exa in **SUPERBUILD** mode:
+Assuming no valid AMReX installation is present on the target system, and ``AMReX_ROOT`` is not set (see :ref:`sec:build:standalone`), the following code will build MFIX-Exa in **SUPERBUILD** mode:
 
 .. code:: shell
 
@@ -65,7 +65,7 @@ the `AMReX user guide <https://amrex-codes.github.io/amrex/docs_html/BuildingAMR
 while ``[mfix options]`` is any of the configuration options listed :ref:`here <tab:mfixcmakeoptions>`.
 
 
-For example, to enable AMReX profiling capabilities in MFiX_Exa, configure as follows:
+For example, to enable AMReX profiling capabilities in MFIX_Exa, configure as follows:
 
 .. code:: shell
 
@@ -80,12 +80,12 @@ Working with the AMReX submodule
 If the AMReX submodule is not initialized, **SUPERBUILD** mode will initialize it and checkout
 the AMReX commit the submodule is pointing to.
 Instead, if the AMReX submodule has already been manually initialized and a custom commit has been checked out,
-**SUPERBUILD** mode will use that commit. For MFiX-Exa development or testing, you may need to build with a different
+**SUPERBUILD** mode will use that commit. For MFIX-Exa development or testing, you may need to build with a different
 branch or release of AMReX.
 
 The ``subprojects/amrex`` directory is a Git repo, so use all standard Git
 commands. Either ``cd subprojects/amrex`` to run Git commands in the ``amrex``
-directory, or use ``git -C subprojects/amrex`` in the MFiX-Exa repo. For
+directory, or use ``git -C subprojects/amrex`` in the MFIX-Exa repo. For
 instance, to build with the ``my-amrex-branch`` branch of the AMReX repo:
 
 .. code:: shell
@@ -96,7 +96,7 @@ instance, to build with the ``my-amrex-branch`` branch of the AMReX repo:
     ...
     modified:   subprojects/amrex (new commits)
 
-The branch ``my-amrex-branch`` will then be used when building MFiX-Exa.
+The branch ``my-amrex-branch`` will then be used when building MFIX-Exa.
 
 To revert to the default version of the AMReX submodule, run ``git submodule
 update``:
@@ -111,7 +111,7 @@ AMReX development is outside the scope of this document. Run ``git status`` in
 the top-level MFix-Exa repo to see whether the AMReX submodule has new commits,
 modified files, or untracked files.
 
-To update the AMReX submodule referenced by MFiX-Exa:
+To update the AMReX submodule referenced by MFIX-Exa:
 
 .. code:: shell
 
@@ -119,7 +119,7 @@ To update the AMReX submodule referenced by MFiX-Exa:
     > git add subprojects/amrex
     > git commit -m 'Updating AMReX version'
 
-This will only update the AMReX SHA-1 referenced by MFiX-Exa. Uncommitted AMReX
+This will only update the AMReX SHA-1 referenced by MFIX-Exa. Uncommitted AMReX
 changes and untracked AMReX files under ``subprojects/amrex`` are not added by
 ``git add subprojects/amrex``. (To commit to the AMReX repo, change directories
 to ``subprojects/amrex`` and run Git commands there, before ``git add
@@ -128,7 +128,7 @@ subprojects/amrex``.)
 .. note::
 
     Only update the AMReX submodule reference in coordination with the other
-    MFiX-Exa developers!
+    MFIX-Exa developers!
 
 
 .. _sec:build:standalone:
@@ -156,13 +156,13 @@ Next, configure, build and install AMReX as follows:
     > cmake -DCMAKE_BUILD_TYPE=[Debug|Release|RelWithDebInfo|MinSizeRel] -DAMReX_PARTICLES=yes -DAMReX_EB=yes -DAMReX_PLOTFILE_TOOLS=yes [other amrex options] -DCMAKE_INSTALL_PREFIX:PATH=/absolute_path_to_amrex_installdir ..
     > make install
 
-The options **AMReX\_PARTICLES=yes**, **AMReX\_EB=yes** and  **AMReX\_PLOTFILE\_TOOLS=yes** are required by MFiX-Exa. ``[other amrex options]`` in the snippet above refers to any other AMReX configuration option in addition to the required ones. Please refer to the `AMReX user guide <https://amrex-codes.github.io/amrex/docs_html/BuildingAMReX.html#building-with-cmake>`_ for more details on building AMReX with CMake.
+The options **AMReX\_PARTICLES=yes**, **AMReX\_EB=yes** and  **AMReX\_PLOTFILE\_TOOLS=yes** are required by MFIX-Exa. ``[other amrex options]`` in the snippet above refers to any other AMReX configuration option in addition to the required ones. Please refer to the `AMReX user guide <https://amrex-codes.github.io/amrex/docs_html/BuildingAMReX.html#building-with-cmake>`_ for more details on building AMReX with CMake.
 
 
-Building MFiX-Exa
+Building MFIX-Exa
 ~~~~~~~~~~~~~~~~~
 
-Clone and build MFiX-Exa:
+Clone and build MFIX-Exa:
 
 .. code:: shell
 
@@ -182,7 +182,7 @@ for an available AMReX installation.
 
 .. _tab:mfixcmakeoptions:
 
-.. table:: MFiX-Exa configuration options
+.. table:: MFIX-Exa configuration options
 
            +-----------------+------------------------------+------------------+-------------+
            | Option name     | Description                  | Possible values  | Default     |
@@ -220,7 +220,7 @@ for an available AMReX installation.
 
 
 
-Few more notes on building MFiX-Exa
+Few more notes on building MFIX-Exa
 -----------------------------------
 
 The system defaults compilers can be overwritten as follows:
@@ -236,18 +236,18 @@ the above command (with full path to the compilers) or the following:
 
     > cmake -DCMAKE_CXX_COMPILER=CC [options] ..
 
-MFiX-Exa uses the same compiler flags used to build AMReX, unless
+MFIX-Exa uses the same compiler flags used to build AMReX, unless
 ``CMAKE_CXX_FLAGS`` is explicitly provided, or
 the environmental variable ``CXXFLAGS`` is set.
 
 
-For GPU builds, MFiX-Exa relies on the `AMReX GPU build infrastructure <https://amrex-codes.github.io/amrex/docs_html/GPU.html#building-with-cmake>`_
+For GPU builds, MFIX-Exa relies on the `AMReX GPU build infrastructure <https://amrex-codes.github.io/amrex/docs_html/GPU.html#building-with-cmake>`_
 . The target architecture to build for can be specified via the AMReX configuration option ``-DAMReX_CUDA_ARCH=<target-architecture>``,
 or by defining the *environmental variable* ``AMREX_CUDA_ARCH`` (all caps). If no GPU architecture is specified,
 CMake will try to determine which GPU is supported by the system.
 
 
-Building MFiX-Exa for Cori (NERSC)
+Building MFIX-Exa for Cori (NERSC)
 -----------------------------------
 
 Standard build
@@ -317,7 +317,7 @@ Finally, navigate to the base of the MFIX-Exa repository and compile in GPU mode
 
 For more information about GPU nodes in Cori -- `<https://docs-dev.nersc.gov/cgpu/>`_
 
-Building MFiX-Exa for Summit (OLCF)
+Building MFIX-Exa for Summit (OLCF)
 -----------------------------------
 
 For the Summit cluster at OLCF, you first need to load/unload modules required to build MFIX-Exa.

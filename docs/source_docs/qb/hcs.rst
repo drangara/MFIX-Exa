@@ -33,7 +33,7 @@ causes :math:`T` (or more accurately :math:`KE`) to deviate significantly from
 KT solution due to regions of high and low concentration and correlated motion.
 
 
-To test if MFiX-Exa predicts the expected clustering behavior, a system is set up
+To test if MFIX-Exa predicts the expected clustering behavior, a system is set up
 with the following non-dimensional parameters:
 
   * initial thermal Reynolds number: :math:`Re_{T_0} = \rho_g d_p \sqrt{T_0} / \mu_g = 20`
@@ -59,7 +59,7 @@ the ideal :cpp:`BVK2` DNS drag law is applied, see [BvK07]_, [TPKKv15]_.
    soluiton of the GTSH model.
 
 
-Three replicate systems are simulated with MFiX-Exa 19.08, differing only
+Three replicate systems are simulated with MFIX-Exa 19.08, differing only
 in initial particle locations and pecular velocities. The particle kinetic
 energy is averaged in the simulations (red) and  compared to the analytical
 granular temperature (black) of the HCS as a function of time in the figure
@@ -77,4 +77,4 @@ of the clustering instability the HCS.
    :alt: clustered state of the HCS
 
    Clustered state of the HCS observed by Goldhirsch and Zanetti [GZ93]_
-   (left) compared to an MFiX-Exa result (right).
+   (left) compared to an MFIX-Exa result (right).

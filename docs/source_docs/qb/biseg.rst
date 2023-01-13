@@ -21,7 +21,7 @@ movement and too much above :math:`U_{mf}` vigorous bubbling promotes
 mixture in the bed. 
 
 
-The optimal batch segregation experiment is simulated with MFiX-Exa 19.08
+The optimal batch segregation experiment is simulated with MFIX-Exa 19.08
 discretized onto a :math:`8 \times 24 \times 8` mesh. No-slip walls are 
 set at vertical domain extents with a mass inflow and pressure outflow at
 bottom and top, respectively. The :cpp:`Gidaspow` drag law is applied. 
@@ -41,7 +41,7 @@ into the over-segregation in this case is on-going.
    :align: center
    :alt: Sim comparison to bidisperse segregation experiment at NETL 
 
-   Comparison of experiment and MFiX-Exa simulaton for rapid segregation
+   Comparison of experiment and MFIX-Exa simulaton for rapid segregation
    of a bi-disperse particle mixture.   
 
 

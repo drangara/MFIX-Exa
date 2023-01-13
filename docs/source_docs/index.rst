@@ -1,4 +1,4 @@
-.. MFiX-EXA documentation master file, created Thu Aug  2 12:19:39 2018.
+.. MFIX-EXA documentation master file, created Thu Aug  2 12:19:39 2018.
 
 Welcome to MFIX-EXA's documentation!
 ====================================

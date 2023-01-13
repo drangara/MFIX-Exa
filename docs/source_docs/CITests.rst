@@ -4,7 +4,7 @@ Continuous Integration
 ======================
 
 The following regression tests are run every time a commit is pushed to the main
-MFiX-Exa repository on the NETL gitlab.
+MFIX-Exa repository on the NETL gitlab.
 
 For each of the tests in the chart below, there are
 three directional variations; these are identified in the repository as, 

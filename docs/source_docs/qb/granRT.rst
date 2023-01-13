@@ -32,7 +32,7 @@ Vinningland et al. [VJFTM07]_:
     by new fingers growing from the center of the rising bubbles.
 
 
-The granular-RT is simulated with MFiX-Exa 19.08 with the following setup. 
+The granular-RT is simulated with MFIX-Exa 19.08 with the following setup. 
 The domain is 56 mm wide by 68 mm tall and 1 mm deep which is discretized 
 by a uniform mesh of :math:`224 \times 272 \times 4` CFD cells. No-slip walls 
 are applied at top, bottom, left and right domain extents. 
@@ -58,10 +58,10 @@ causing the particles to fall downward into the quiescent air.
 
    Progression of the granular Rayleigh-Taylor instability in the experiments 
    of Vinningland et al. [VJFTM07]_ (top row) 
-   compared to the MFiX-Exa result (bottom row). 
+   compared to the MFIX-Exa result (bottom row). 
 
 
-The figure above shows the progression of an MFiX-Exa 19.08 simulation compared 
+The figure above shows the progression of an MFIX-Exa 19.08 simulation compared 
 to the experimental results. There is a good match between the experimental and 
 numerical results for roughly the first half of the transien: an initially flat 
 interface gives way to many fingers falling into the gas which merge and form 

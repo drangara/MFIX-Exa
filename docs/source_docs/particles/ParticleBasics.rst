@@ -7,7 +7,7 @@
 Particle Basics
 ===============
 
-In MFiX-Exa, particles are managed by the `MFIXParticleContainer
+In MFIX-Exa, particles are managed by the `MFIXParticleContainer
 <https://amrex-codes.github.io/MFIX-Exa/doxygen/class_m_f_i_x_particle_container.html>`_
 class.  This class is derived from AMReX's :cpp:`NeighborParticleContainer`
 and handles all of the particle data. 

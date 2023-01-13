@@ -8,10 +8,10 @@
 .. _sec:EB-basics:
 
 
-Constructing Embedded Boundaries in MFiX-Exa
+Constructing Embedded Boundaries in MFIX-Exa
 ============================================
 
-MFiX uses AMReX's constructive solid geometry framework defined in the namespace
+MFIX-Exa uses AMReX's constructive solid geometry framework defined in the namespace
 :cpp:`amrex::EB2`. See the `AMReX EB documentation`_ for more details. These are
 defined in ``src/eb/mfix_eb.cpp``. A the function :cpp:`mfix::make_eb_geometry`
 (also defined in ``src/eb/mfix_eb.cpp``) selects :cpp:one of the following
@@ -73,11 +73,11 @@ the level-set creation:
 +-------------------------------+------------------------------------------------+
 |  Parameter                    |  Description                                   |
 +===============================+================================================+
-| ``amr.max_level``             | If greater than 0, MFiX operates in multi-level|
-|                               | mode. The level-set grids follow all other     |
-|                               | grids. If equal to 1, the level-set has two    |
-|                               | levels (one additional level with higher       |
-|                               | refinement).                                   |
+| ``amr.max_level``             | If greater than 0, MFIX-Exa operates in        |
+|                               | multi-level mode. The level-set grids follow   |
+|                               | all other grids. If equal to 1, the level-set  |
+|                               | has two levels (one additional level with      |
+|                               | higher refinement).                            |
 +-------------------------------+------------------------------------------------+
 | ``mfix.levelset__refinement`` | If ``amr.max_level > 1`` this parameter is     |
 |                               | ignored. Otherwise it sets the maximum         |
@@ -85,7 +85,7 @@ the level-set creation:
 +-------------------------------+------------------------------------------------+
 
 
-How MFiX-Exa Constructs the EB Geometry
+How MFIX-Exa Constructs the EB Geometry
 ---------------------------------------
 
 Once a geometry is selected by :cpp:`mfix::make_eb_geometry`, the procedure is
@@ -117,8 +117,8 @@ documentation`_ for information on how to construct new geometries:
    the particle EB levels.
 
 
-MFiX's EB Data Structures
--------------------------
+MFIX-Exa's EB Data Structures
+-----------------------------
 
 The :cpp:`mfix` class stores the following EB data:
 
@@ -152,7 +152,7 @@ constructed over the particle grid using the particle EB levels.
 A note about constructing EB Levels
 -----------------------------------
 
-MFiX-Exa builds EB levels in :cpp:`mfix::build_eb_levels` (via
+MFIX-Exa builds EB levels in :cpp:`mfix::build_eb_levels` (via
 :cpp:`LSCore<F>::BuildEBLevel`)
 
 .. highlight:: c++
@@ -177,17 +177,17 @@ give slightly different answers in the fluid solve.
 Local Mesh Refinement at Walls
 ==============================
 
-MFiX-Exa has the capability of locally refining the computational grid near EBs.
+MFIX-Exa has the capability of locally refining the computational grid near EBs.
 This is done by tagging (in :cpp:`mfix::ErrorEst`) any cells with volume
 fraction between 0 and 1. To enable local mesh refinement, set ``amr.max_level``
 to a value greater than 1. Note that the parameter ``mfix.levelset__refinement``
 is ignored on all cases except when ``amr.max_level = 1``.
 
 
-MFiX-Exa Initialization Process
+MFIX-Exa Initialization Process
 -------------------------------
 
-Since MFiX requires the volume fraction when building grids (because this is
+Since MFIX-Exa requires the volume fraction when building grids (because this is
 needed by :cpp:`mfix::ErrorEst`), the EB geometries need to be built before
 calling :cpp:`mfix::Init`. The recommended procedure therefore is
 
@@ -253,13 +253,13 @@ initialization functions inherited from :cpp:`amrex::AmrCore`.
 The Level-Set Function
 ======================
 
-MFiX-Exa uses a level-set function to resolve particle-wall collisions. See the
+MFIX-Exa uses a level-set function to resolve particle-wall collisions. See the
 `AMReX Level-Set documentation`_ for more details. The level-set function is
 stored on the nodal :cpp:`Vector<std::unique_ptr<MultiFab>> mfix::level_sets`.
 The level-set data is always stored on the particle grids. Depending on the
 input ``amr.max_level`` The level-set can be in one of two modes:
 
-1. MFiX-Exa is running in single-level mode (:cpp:`nlev == 1`). Then
+1. MFIX-Exa is running in single-level mode (:cpp:`nlev == 1`). Then
    :cpp:`mfix::level_sets[0]` will be at the same resolution as the fluid
    (except that it is stored on the particle grid). Even though :cpp:`nlev == 1`,
    there is a second level, :cpp:`level_sets[1]`. This level is the same as
@@ -267,9 +267,9 @@ input ``amr.max_level`` The level-set can be in one of two modes:
    way the level-set always has the appropriate resolution to resolve structures
    in the EB, even if the fluid is defined on a fairly coarse grid.
 
-2. MFiX-Exa is running in multi-level mode (:cpp:`nlev > 1`). The the parameter
+2. MFIX-Exa is running in multi-level mode (:cpp:`nlev > 1`). The the parameter
    :cpp:`mfix::levelset__refinement` is ignored. :cpp:`mfix::level_sets` then
-   follows the rest of MFiX, i.e. it is defined on the particle grids on all
+   follows the rest of MFIX-Exa, i.e. it is defined on the particle grids on all
    levels.
 
 The level-set is used in two places:

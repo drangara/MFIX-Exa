@@ -3,7 +3,7 @@
 Getting Started
 ===============
 
-The MFiX-Exa source code currently lives in NETL's
+The MFIX-Exa source code currently lives in NETL's
 `gitlab repository <https://mfix.netl.doe.gov/gitlab/exa/mfix>`_. The repository
 can be cloned by using git:
 
@@ -16,7 +16,7 @@ can be cloned by using git:
    Access to the repository is currently restricted to project members. As the
    code matures, a distribution mechanism will be developed.
 
-MFiX-Exa is also dependent on the AMReX and AMReX-Hydro git repositories.
+MFIX-Exa is also dependent on the AMReX and AMReX-Hydro git repositories.
 For cmake builds these repositories may be cloned as part of the configuration.
 Details are included in the sections below.
 

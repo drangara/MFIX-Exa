@@ -64,11 +64,11 @@ Note that when the particles are dense, only a small portion of the ghost partic
 inside the grids. AMReX provides a function `selectActualNeighbors` to filter out the ghost particles that will
 not be used for building the neighbor list. So the subsequent calls to `updateNeighbors` can avoid transferring
 these unused ghost particles, which significantly reduces the communication cost in some tests.
-To use this optimization, set `particles.reduceGhostParticles` to :cpp:`true` in MFiX-Exa's inputs.
+To use this optimization, set `particles.reduceGhostParticles` to :cpp:`true` in MFIX-Exa's inputs.
 
 Once the neighbor list has been constructed, collisions with both particles and walls can easily be processed.
 
-MFiX-Exa currently runs on both CPU-only and hybrid CPU/GPU architectures.
+MFIX-Exa currently runs on both CPU-only and hybrid CPU/GPU architectures.
 
 
 

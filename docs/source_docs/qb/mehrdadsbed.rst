@@ -44,9 +44,9 @@ constant diameter and density of :math:`d_p = 400` microns and
    :align: center
    :alt: Sim comparison to Mehrdad's experiment
 
-   Comparison of the experiment (middle two rows) to the MFiX-Exa simulation
+   Comparison of the experiment (middle two rows) to the MFIX-Exa simulation
    (top and bottom rows).
 
-The bed is simulated using MFiX-Exa 19.08 for an initial transient period of
+The bed is simulated using MFIX-Exa 19.08 for an initial transient period of
 10 s before an observation window of an additional 5 s. The desired left-right
 pattern is seen as shown in the figure above.

@@ -6,7 +6,7 @@ Run-time Inputs
 Run-time inputs are used to control the simulation setup such as the grid,
 solver settings, geometry, boundary conditions etc. These ``<key> = <value(s)>``
 pairs are saved in a text file, with any file name, that is passed to the
-MFiX-Exa executable at run time:
+MFIX-Exa executable at run time:
 
 .. code-block:: shell
 

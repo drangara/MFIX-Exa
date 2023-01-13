@@ -1,10 +1,10 @@
-Running the MFiX Test Suite
-===========================
+Running the MFIX-Exa Test Suite
+===============================
 
-MFiX-Exa comes with several tests aimed at evaluating software
+MFIX-Exa comes with several tests aimed at evaluating software
 functionalities. The source files as well as the required input files
 for each test are located in the ``tests`` directory. The ``tests``
-directory is copied to the build directory during MFiX-Exa configuration
+directory is copied to the build directory during MFIX-Exa configuration
 process. When a test is run (see below), output files are stored in
 ``build_dir/tests/test-name``.
 
@@ -19,7 +19,7 @@ the directory, ``amrex/Tools/PostProcessing/F_Src``. Additionally,
 o To compare point-by-point field data, the environment variable
 ``FCOMPARE`` must point the AMReX utility ``plt_compare_diff_grids``
 found in the directory, ``amrex/Tools/PostProcessing/F_Src``.
-Additionally, the environment variable ``MFiX_BENCHMARKS_HOME`` must
+Additionally, the environment variable ``MFIX_BENCHMARKS_HOME`` must
 point to the location of a local regression test data set. See
 *Generating local regression test data* for instructions on creating a
 local regression test data set.

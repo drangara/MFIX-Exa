@@ -54,12 +54,12 @@ The jet is switched on and off with a step change in `usr1.f90`.
    :align: center
    :alt: Sim comparison to single bubble injection experiment of Boyce
 
-   Comparison of experiment and MFiX-Exa simulaton for single bubbles 
+   Comparison of experiment and MFIX-Exa simulaton for single bubbles 
    injected into incipiently fluidized beds for increasing (left to right) 
    injection times. 
 
 
-The figure above provides a comparison between MFiX-Exa `19.08` simulation 
+The figure above provides a comparison between MFIX-Exa `19.08` simulation 
 results and the experimental measurements. In both cases, the particle data 
 has been averaged onto a :math:`10` mm thick grid of :math:`21 \times 32`
 For the longer injection times, :math:`\delta t_{inj} \approx 100` and 

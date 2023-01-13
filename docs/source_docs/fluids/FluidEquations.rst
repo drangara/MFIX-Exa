@@ -60,7 +60,7 @@ flows), only buoyancy (pressure gradient) and steady drag are considered:
 where :math:`\boldsymbol{V}_{ig} = \boldsymbol{V}_i - \boldsymbol{U}_g ( \boldsymbol{X}_i )` 
 is the velocity of ith particle relative to the fluid-phase (at the particle position 
 :math:`\boldsymbol{X}_i`). :math:`F_{gi}` is closed by the specification of a drag 
-coefficient, :math:`C_D`. Currently, MFiX-Exa includes Wen-Yu, Gidaspow and BVK2 drag laws.
+coefficient, :math:`C_D`. Currently, MFIX-Exa includes Wen-Yu, Gidaspow and BVK2 drag laws.
 
 .. wdf todo 
    gidaspow form: C_D^{Gidaspow} = \chi C_D^{(Wen-Yu)} + \left(1 - \chi \right)  C_D^{(Ergun)}

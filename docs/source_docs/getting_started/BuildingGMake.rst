@@ -1,7 +1,7 @@
-Building MFiX-Exa with gmake
+Building MFIX-Exa with gmake
 ============================
 
-If you want to use gmake to build MFiX_Exa, you will need to
+If you want to use gmake to build MFIX_Exa, you will need to
 clone amrex and AMReX-Hydro into a local directories, and also
 clone mfix:
 

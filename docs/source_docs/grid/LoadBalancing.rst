@@ -29,6 +29,6 @@ Options supported by AMReX include:
 - Round-robin: sort grids and assign them to ranks in round-robin fashion -- specifically
   FAB ``i`` is owned by CPU ``i % N`` where N is the total number of MPI ranks.
 
-These methods work for both fluid and particle grids if dual-grid is enabled. MFiX-Exa also supports
+These methods work for both fluid and particle grids if dual-grid is enabled. MFIX-Exa also supports
 a Greedy load balancing algorithm for particle grids. It balances the particle counts per rank and
 aligns particle grids with fluid grids to minimize the data-transfer between two grids.
