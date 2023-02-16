@@ -21,14 +21,14 @@ can be built locally by:
 1. Install sphinx:
 
 ```shell
-> pip install sphinx sphinx_rtd_theme
+> pip install sphinx sphinx_rtd_theme sphinx-tabs
 ```
 
 2. Build the documentation:
 
 ```shell
 > mkdir build
-> sphinx-build -b html docs/source/ build
+> sphinx-build -b html docs/source_docs/ build
 ```
 
 The HTML pages will now be located in the `build` directory. Open the

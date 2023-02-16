@@ -1,5 +1,80 @@
-Building MFIX-Exa with cmake
-============================
+Building MFIX-Exa
+==================
+
+This page gives the generic instructions for building MFIX-Exa using gmake and cmake.
+For HPC cluser specific instructions, please refer to :ref:`GettingStarted:HPC`.
+
+
+Building with gmake
+--------------------
+
+If you want to use gmake to build MFIX_Exa, you will need to
+clone amrex and AMReX-Hydro into a local directories, and also
+clone mfix:
+
+.. code:: shell
+
+    > git clone https://github.com/AMReX-Codes/amrex.git
+    > git clone https://github.com/AMReX-Codes/AMReX-Hydro.git
+    > git clone http://mfix.netl.doe.gov/gitlab/exa/mfix.git
+    > cd mfix/exec
+
+Then, edit the GNUmakefile (or set an environment variable)
+to define AMREX_HOME and AMREX_HYDRO_HOME
+to be the path to the directories where you have put amrex
+and AMReX-Hydro.  Note that the default locations of
+AMREX_HOME and AMREX_HYDRO_HOME are in the subprojects directory,
+which is where a cmake configuration may clone these repositories.
+Other options that you can set include
+
++-----------------+----------------------------------+------------------+-------------+
+| Option name     | Description                      | Possible values  | Default     |
+|                 |                                  |                  | value       |
++=================+==================================+==================+=============+
+| COMP            | Compiler (gnu or intel)          | gnu / intel      | gnu         |
++-----------------+----------------------------------+------------------+-------------+
+| USE_MPI         | Enable MPI                       | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| USE_OMP         | Enable OpenMP                    | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| USE_CSG         | Enable CSG geometry file support | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| USE_CUDA        | Enable CUDA GPU support          | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| USE_HIP         | Enable HIP GPU support           | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| USE_DPCPP       | Enable DPCPP GPU support         | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| USE_HYPRE       | Enable HYPRE support             | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| DEBUG           | Create a DEBUG executable        | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| PROFILE         | Include profiling info           | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| TRACE_PROFILE   | Include trace profiling info     | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| COMM_PROFILE    | Include comm profiling info      | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| TINY_PROFILE    | Include tiny profiling info      | TRUE / FALSE     | FALSE       |
++-----------------+----------------------------------+------------------+-------------+
+| DIM             | Dimensionality of problem        | 2 / 3            | 3           |
++-----------------+----------------------------------+------------------+-------------+
+
+.. note::
+   **Do not set both USE_OMP and USE_CUDA/HIP/DPCPP to true.**
+
+Then type
+
+.. code:: shell
+
+    > make -j
+
+An executable will appear; the executable name will reflect
+some of the build options above.
+
+
+Building with cmake
+--------------------
 
 CMake build is a two-step process. First ``cmake`` is invoked to create
 configuration files and makefiles in a chosen directory (``builddir``).
@@ -44,7 +119,7 @@ configuration options must meet MFIX-Exa requirements.
 .. _sec:build:superbuild:
 
 SUPERBUILD Instructions (recommended)
--------------------------------------
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 By default MFIX-Exa CMake looks for an existing AMReX installation on the system. If none is found, it falls back to **SUPERBUILD** mode.
 In this mode, MFIX-Exa CMake inherents AMReX CMake targets and configuration options, that is, MFIX-Exa and AMReX are configured and built as a single entity
@@ -74,7 +149,7 @@ For example, to enable AMReX profiling capabilities in MFIX_Exa, configure as fo
 
 
 Working with the AMReX submodule
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 **SUPERBUILD** mode relies on a git submodule to checkout the AMReX git repository.
 If the AMReX submodule is not initialized, **SUPERBUILD** mode will initialize it and checkout
@@ -133,11 +208,11 @@ subprojects/amrex``.)
 
 .. _sec:build:standalone:
 
-**STANDALONE** instructions
----------------------------------------------------------------------
+STANDALONE instructions
+<<<<<<<<<<<<<<<<<<<<<<<
 
 Building AMReX
-~~~~~~~~~~~~~~~~~~~
+>>>>>>>>>>>>>>
 
 Clone AMReX from the official Git repository.
 Note that the only branch available is *development*:
@@ -160,7 +235,7 @@ The options **AMReX\_PARTICLES=yes**, **AMReX\_EB=yes** and  **AMReX\_PLOTFILE\_
 
 
 Building MFIX-Exa
-~~~~~~~~~~~~~~~~~
+>>>>>>>>>>>>>>>>>
 
 Clone and build MFIX-Exa:
 
@@ -220,8 +295,8 @@ for an available AMReX installation.
 
 
 
-Few more notes on building MFIX-Exa
------------------------------------
+Few more notes on building MFIX-Exa with cmake
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 The system defaults compilers can be overwritten as follows:
 
@@ -245,107 +320,3 @@ For GPU builds, MFIX-Exa relies on the `AMReX GPU build infrastructure <https://
 . The target architecture to build for can be specified via the AMReX configuration option ``-DAMReX_CUDA_ARCH=<target-architecture>``,
 or by defining the *environmental variable* ``AMREX_CUDA_ARCH`` (all caps). If no GPU architecture is specified,
 CMake will try to determine which GPU is supported by the system.
-
-
-Building MFIX-Exa for Cori (NERSC)
------------------------------------
-
-Standard build
-~~~~~~~~~~~~~~~~~~~
-
-For the Cori cluster at NERSC, you first need to load/unload modules required to build MFIX-Exa.
-
-.. code:: shell
-
-    > module unload altd
-    > module unload darshan
-    > module load cmake/3.14.0
-
-The default options for Cori are the **Haswell** architecture and **Intel** compiler, if you want to compile with the **Knight's Landing (KNL)** architecture:
-
-.. code:: shell
-
-    > module swap craype-haswell craype-mic-knl
-
-Or use the **GNU** compiler:
-
-.. code:: shell
-
-    > module swap PrgEnv-intel PrgEnv-gnu
-
-Now MFIX-Exa can be built following the :ref:`sec:build:superbuild`.
-
-.. note::
-
-    The load/unload modules options could be saved in the `~/.bash_profile.ext`
-
-
-GPU build
-~~~~~~~~~~~~~~~~~~~
-
-To compile on the GPU nodes in Cori, you first need to purge your modules, most of which won't work on the GPU nodes
-
-.. code:: shell
-
-    > module purge
-
-Then, you need to load the following modules:
-
-.. code:: shell
-
-    > module load modules esslurm gcc cuda openmpi/3.1.0-ucx cmake/3.14.0
-
-Currently, you need to use OpenMPI; mvapich2 seems not to work.
-
-Then, you need to use slurm to request access to a GPU node:
-
-.. code:: shell
-
-    > salloc -N 1 -t 02:00:00 -c 80 -C gpu -A m1759 --gres=gpu:8 --exclusive
-
-This reservers an entire GPU node for your job. Note that you can’t cross-compile for the GPU nodes - you have to log on to one and then build your software.
-
-Finally, navigate to the base of the MFIX-Exa repository and compile in GPU mode:
-
-.. code:: shell
-
-    > cd mfix
-    > mdkir build
-    > cd build
-    > cmake -DMFIX_GPU_BACKEND=CUDA -DAMReX_CUDA_ARCH=Volta -DCMAKE_CXX_COMPILER=g++ ..
-    > make -j
-
-For more information about GPU nodes in Cori -- `<https://docs-dev.nersc.gov/cgpu/>`_
-
-Building MFIX-Exa for Summit (OLCF)
------------------------------------
-
-For the Summit cluster at OLCF, you first need to load/unload modules required to build MFIX-Exa.
-
-.. code:: shell
-
-    > module unload xalt
-    > module unload darshan
-    > module load gcc
-    > module load cmake/3.14.0
-
-Now MFIX-Exa can be built following the :ref:`sec:build:superbuild`.
-
-To build MFIX-Exa for GPUs, you need to load cuda module:
-
-.. code:: shell
-
-    > module load cuda/10.1.105
-
-To compile:
-
-.. code:: shell
-
-    > cd mfix
-    > mdkir build
-    > cd build
-    > cmake -DCMAKE_CXX_COMPILER=g++ -DMFIX_GPU_BACKEND=[NONE|CUDA]
-    > make -j
-
-An example of a *submission_script* for GPUs can be found in the repo ``mfix/tests/GPU_test/script.sh``.
-For more information about Summit cluster: `<https://www.olcf.ornl.gov/for-users/system-user-guides/summit/>`_
