@@ -33,7 +33,8 @@ import sphinx_rtd_theme
 # ones.
 extensions = ['sphinx.ext.mathjax',
               'sphinx.ext.githubpages',
-              'sphinx.ext.viewcode']
+              'sphinx.ext.viewcode',
+              'sphinx_tabs.tabs']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['ytemplates']

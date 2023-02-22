@@ -27,8 +27,7 @@ the simulations results.
 .. toctree::
    :maxdepth: 1
 
-   Source directory overview <getting_started/Structure>
-   Compiling with gmake <getting_started/BuildingGMake>
-   Compiling with cmake <getting_started/BuildingCMake>
+   Building MFIX-Exa <getting_started/BuildingMFIX>
    Running your first simulation <getting_started/FirstSimulation>
    Visualizing simulation results <getting_started/Visualization>
+   HPC <getting_started/Hpc>

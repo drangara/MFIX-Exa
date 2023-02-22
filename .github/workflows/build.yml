@@ -20,7 +20,7 @@ jobs:
         run: sudo apt install doxygen
 
       - name: Install Sphinx
-        run: pip install sphinx sphinx-rtd-theme
+        run: pip install sphinx sphinx-rtd-theme sphinx-tabs
 
       - name: Checkout code
         uses: actions/checkout@v2
