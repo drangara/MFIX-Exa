@@ -49,4 +49,5 @@ keywords such as ``mfix``, ``amr``, ``geometry``, ``nodal_proj`` etc.
    inputs/InputsPlotFiles
    inputs/InputsCheckpoint
    inputs/InputsMonitors
+   inputs/InputsPICtoDEM
    inputs/InputsVerbosity
