@@ -1,0 +1,47 @@
+name: Build-and-Deploy
+
+# Run this workflow every time a new commit pushed to your repository
+on: push
+
+jobs:
+  # Set the job key. The key is displayed as the job name
+  # when a job name is not provided
+  publish:
+    # Name the Job
+    name: Build Sphinx manual HTML target
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Doxygen
+        run: sudo apt install doxygen
+
+      - name: Install Sphinx
+        run: pip install sphinx sphinx-rtd-theme sphinx-tabs
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build MFiX-Exa Documentation
+        run: make -C docs
+        env:
+          DEFAULT_BRANCH: main
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+
+      - name: Build MFiX-Exa PIC VVA Manual
+        run: make -C docs/picvva
+        env:
+          DEFAULT_BRANCH: main
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: docs/webroot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

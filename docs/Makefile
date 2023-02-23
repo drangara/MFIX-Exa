@@ -1,7 +1,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
-SOURCEDIR     = source
+SOURCEDIR     = source_docs
 BUILDDIR      = webroot
 
 all: html webroot/doxygen
