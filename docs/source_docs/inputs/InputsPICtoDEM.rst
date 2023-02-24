@@ -64,7 +64,7 @@ The following inputs must be preceded by "amr".
 |                               | geometry checkpoint file for the DEM |        |         |
 |                               | refined case                         |        |         |
 +-------------------------------+--------------------------------------+--------+---------+
-| refined_geom_chk_read         | Flag to turn on/off reading the EB   | bool   | true    |
+| refined_geom_chk_read         | Flag to turn on/off reading the EB   | bool   | false   |
 |                               | geometry checkpoint file for the DEM |        |         |
 |                               | refined case                         |        |         |
 +-------------------------------+--------------------------------------+--------+---------+
