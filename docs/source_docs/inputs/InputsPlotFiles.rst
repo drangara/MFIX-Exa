@@ -3,7 +3,7 @@
 Plotfiles and Other Output
 ==========================
 
-The following inputs must be preceded by "amr" and control frequency and naming of plotfile generation as well
+The following inputs must be preceded by "mfix" and control frequency and naming of plotfile generation as well
 as whether the EB geometry or level set should be written out, and if the particles should be written out in Ascii
 format (for debugging).
 
@@ -36,7 +36,7 @@ format (for debugging).
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 
 
-The following inputs must be preceded by "amr" and control what variables will be written in plotfiles.
+The following inputs must be preceded by "mfix" and control what variables will be written in plotfiles.
 
 +---------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                     | Description                                                           |   Type      | Default   |
@@ -117,7 +117,7 @@ i.e., set `amrex.the_arena_is_managed = true`.
 +---------------------+-----------------------------------------------------------------------+-------------+-----------+
 
 
-The following inputs must be preceded by "amr.solids" and allow to write additional plotfiles which contain only solids variables in specific regions at fixed timesteps or approximated simulation times. All these parameters are user-defined.
+The following inputs must be preceded by "mfix.solids" and allow to write additional plotfiles which contain only solids variables in specific regions at fixed timesteps or approximated simulation times. All these parameters are user-defined.
 
 +---------------------------+-----------------------------------------------------------------+-------------+-----------+
 |                           | Description                                                     |   Type      | Default   |
@@ -177,7 +177,7 @@ region.
 
 .. code-block:: none
 
-   amr.solids.regions = my_region
+   mfix.solids.regions = my_region
 
-   amr.solids.my_region.plot_int = 10
-   amr.solids.my_region.plt_vel_p = 1
+   mfix.solids.my_region.plot_int = 10
+   mfix.solids.my_region.plt_vel_p = 1

@@ -21,7 +21,7 @@ grids to MPI ranks, i.e. defining the :cpp:`DistributionMapping` with which
 
 MFIX-Exa also allows for the "dual grid approach", in which mesh and particle data are allocated
 on different box layouts with different mappings to MPI ranks.  This option is enabled
-by setting :cpp:`amr.dual_grid = 1` in the inputs file.
+by setting :cpp:`mfix.dual_grid = 1` in the inputs file.
 See :ref:`sec:dual_grid` for more about this approach.
 
 When running on multicore machines with OpenMP, we can also control the distribution of

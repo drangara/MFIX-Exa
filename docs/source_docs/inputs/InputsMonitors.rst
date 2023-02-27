@@ -3,7 +3,7 @@
 Spatial averages
 ================
 
-The following inputs must be preceded by "amr" and control whether to compute
+The following inputs must be preceded by "mfix" and control whether to compute
 spatial averages, and how often to output the results.  n is the number of
 spatial averages implicitly defined by the size of avg_region_x_w.
 
@@ -52,7 +52,7 @@ A Monitor is a tool for capturing data from the solver about the model.
 
 Data (such as volume fraction, pressure, velocity, etc.) for a given
 monitor region is written to a CSV file while the solver is running.
-To define monitors, the following inputs must be preceded by "amr." prefix.
+To define monitors, the following inputs must be preceded by "mfix" prefix.
 
 +--------------------+------------------------------------------------------+-------------+-----------+
 |                    | Description                                          |   Type      | Default   |
@@ -64,10 +64,10 @@ To define monitors, the following inputs must be preceded by "amr." prefix.
 
 .. code-block:: none
 
-   amr.monitors = my_monitor0  my_monitor1
+   mfix.monitors = my_monitor0  my_monitor1
 
-   amr.monitors.my_monitor0 = Eulerian::VolumeIntegral::MassWeightedIntegral
-   amr.monitors.my_monitor1 = Lagrangian::Average::VolumeWeightedAverage
+   mfix.monitors.my_monitor0 = Eulerian::VolumeIntegral::MassWeightedIntegral
+   mfix.monitors.my_monitor1 = Lagrangian::Average::VolumeWeightedAverage
 
 
 Region Selection
@@ -76,7 +76,7 @@ Region Selection
 To define a monitor, there must be a region already defined in the regions
 inputs. A Monitor region is a single point, plane, or volume. Multiple regions
 cannot be combined for a monitor. The following inputs must be preceded by the
-"amr.monitors." prefix.
+"mfix.monitors" prefix.
 
 +------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                  | Description                                                           |   Type      | Default   |
@@ -87,8 +87,8 @@ cannot be combined for a monitor. The following inputs must be preceded by the
 .. code-block:: none
 
    # regionA and regionB to be defined in the "regions" inputs section
-   amr.monitors.my_monitor0.region = regionA
-   amr.monitors.my_monitor1.region = regionB
+   mfix.monitors.my_monitor0.region = regionA
+   mfix.monitors.my_monitor1.region = regionB
 
 
 Monitor Output
@@ -98,7 +98,7 @@ The monitor data will be output to a file with name given by the input
 "plot_file", and the extension ``.csv`` is automatically added. The monitor
 output file is in Comma Separated Value (CSV) format. The first line of the file
 provides header information. The following inputs must be preceded by the
-"amr.monitors." prefix.
+"mfix.monitors" prefix.
 
 +-------------------------------+----------------------------------------------------------+-------------+-----------+
 |                               | Description                                              |   Type      | Default   |
@@ -128,18 +128,18 @@ provides header information. The following inputs must be preceded by the
 
 .. code-block:: none
 
-   amr.monitors.my_monitor0.plot_file = monitor0_output
-   amr.monitors.my_monitor0.plot_int = 10
+   mfix.monitors.my_monitor0.plot_file = monitor0_output
+   mfix.monitors.my_monitor0.plot_int = 10
 
-   amr.monitors.my_monitor1.plot_file = monitor1_output
-   amr.monitors.my_monitor1.plot_per_approx = 0.01
+   mfix.monitors.my_monitor1.plot_file = monitor1_output
+   mfix.monitors.my_monitor1.plot_per_approx = 0.01
 
 
 Monitor Variables
 -----------------
 
 The variables to be monitored can be specified in the inputs by including the
-following input preceded by the "amr.monitors." prefix.
+following input preceded by the "mfix.monitors" prefix.
 
 +---------------------+--------------------------------------------------------------------+-------------+-----------+
 |                     | Description                                                        |   Type      | Default   |
@@ -149,9 +149,9 @@ following input preceded by the "amr.monitors." prefix.
 
 .. code-block:: none
 
-   amr.monitors.my_monitor0.variables = T_g  vel_g  p_g  gp_y  X_gk
+   mfix.monitors.my_monitor0.variables = T_g  vel_g  p_g  gp_y  X_gk
 
-   amr.monitors.my_monitor1.variables = density  drag_y  T_s  txfr_vel_x
+   mfix.monitors.my_monitor1.variables = density  drag_y  T_s  txfr_vel_x
 
 
 Eulerian Monitors
@@ -642,7 +642,7 @@ Flow rates
 For Lagrangian monitors of type FlowRate, the flow plane must be specified in
 the inputs and it must be defined by one of the regions defined in the regions
 inputs. The following input for a monitor [monitor] of type FlowRate can be
-used, preceeded by the "amr.monitors." prefix.
+used, preceeded by the "mfix.monitors" prefix.
 
 +------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                  | Description                                                           |   Type      | Default   |

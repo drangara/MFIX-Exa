@@ -6,7 +6,7 @@ we will run a simple example that contains fluid, particles,
 and embedded boundaries.  This particular example is
 particles flowing down a cylinder.
 First, edit ``path/to/mfix/benchmarks/05-cyl-fluidbed/Size0001/inputs``
-so that ``mfix.write_eb_surface = true`` and ``amr.plot_int = 1``.
+so that ``mfix.write_eb_surface = true`` and ``mfix.plot_int = 1``.
 Then, run the example with:
 
 .. highlight:: console

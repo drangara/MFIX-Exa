@@ -6,7 +6,7 @@
 Gridding and Load Balancing
 ===========================
 
-The following inputs must be preceded by "amr" and determine how we create the grids and how often we regrid.
+The following inputs must be preceded by "mfix" and determine how we create the grids and how often we regrid.
 
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                      | Description                                                           |   Type      | Default   |
