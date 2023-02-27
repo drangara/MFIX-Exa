@@ -6,14 +6,11 @@
 Gridding and Load Balancing
 ===========================
 
-The following inputs must be preceded by "mfix" and determine how we create the grids and how often we regrid.
+The following inputs must be preceded by "amr" and determine how we create the grids.
 
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                      | Description                                                           |   Type      | Default   |
 +======================+=======================================================================+=============+===========+
-| regrid_int           | How often to regrid (in number of steps at level 0)                   |   Int       |    -1     |
-|                      | if regrid_int = -1 then no regridding will occur                      |             |           |
-+----------------------+-----------------------------------------------------------------------+-------------+-----------+
 | max_grid_size_x      | Maximum number of cells at level 0 in each grid in x-direction        |    Int      | 32        |
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 | max_grid_size_y      | Maximum number of cells at level 0 in each grid in y-direction        |    Int      | 32        |
@@ -25,6 +22,15 @@ The following inputs must be preceded by "mfix" and determine how we create the 
 | blocking_factor_y    | Each grid must be divisible by blocking_factor_y in y-direction       |    Int      |  8        |
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 | blocking_factor_z    | Each grid must be divisible by blocking_factor_z in z-direction       |    Int      |  8        |
++----------------------+-----------------------------------------------------------------------+-------------+-----------+
+
+The following inputs must be preceded by "mfix" and determine how often we regrid.
+
++----------------------+-----------------------------------------------------------------------+-------------+-----------+
+|                      | Description                                                           |   Type      | Default   |
++======================+=======================================================================+=============+===========+
+| regrid_int           | How often to regrid (in number of steps at level 0)                   |   Int       |    -1     |
+|                      | if regrid_int = -1 then no regridding will occur                      |             |           |
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 
 The following inputs must be preceded by "fabarray_mfiter" and determine how we create the logical tiles:
