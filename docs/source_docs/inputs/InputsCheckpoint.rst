@@ -3,7 +3,7 @@
 Checkpoint/Restart
 ==================
 
-The following inputs must be preceded by "amr" and control checkpoint/restart.
+The following inputs must be preceded by "mfix." and control checkpoint/restart.
 
 +-------------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                         | Description                                                           |   Type      | Default   |
@@ -16,7 +16,7 @@ The following inputs must be preceded by "amr" and control checkpoint/restart.
 | check_file              | Prefix to use for checkpoint output                                   |  String     | chk       |
 +-------------------------+-----------------------------------------------------------------------+-------------+-----------+
 | check_walltime          | Write a check point file after the specified walltime (HH:MM:SS)      |  String     | None      |
-|                         | has lapsed. For example, if amr.check_waltime = 00:10:00, then a      |             |           |
+|                         | has lapsed. For example, if mfix.check_walltime = 00:10:00, then a    |             |           |
 |                         | checkpoint file is after a job has run for ten minutes.               |             |           |
 +-------------------------+-----------------------------------------------------------------------+-------------+-----------+
 | geom_chk_write          | When True, writes the EB geometry data into geom_chk_file             |  bool       | False     |

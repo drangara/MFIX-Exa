@@ -26,9 +26,9 @@ Visualize the particles
 -----------------------
 
 The solver will write plot files if one of the write frequency options is set
-(``amr.plot_int``, ``amr.plot_per_exact``, or ``amr.plot_per_approx``) in
+(``mfix.plot_int``, ``mfix.plot_per_exact``, or ``mfix.plot_per_approx``) in
 directories that are prefixed with the prefix specified in the inputs file
-(``amr.plot_file = 'plt'``). To visualize these particles in Paraview, press
+(``mfix.plot_file = 'plt'``). To visualize these particles in Paraview, press
 the open button. In the file dialog, browse to the simulation directory and
 select the directory group corresponding to the specified prefix. In this
 example, the director group is displayed as ``plt...``. If only one plot

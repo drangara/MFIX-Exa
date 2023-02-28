@@ -9,7 +9,7 @@ the simulation will stop when either the number of steps reaches max_step or tim
 In the case of unsteady flow, the simulation will stop when either the tolerance (difference between
 subsequent steps) is reached or the number of iterations reaches the maximum number specified.
 
-The following inputs must be preceded by ``mfix``. 
+The following inputs must be preceded by "mfix.": 
 
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 | Key                  | Description                                                           |   Type      | Default      |
@@ -29,7 +29,7 @@ The following inputs must be preceded by ``mfix``.
 | tcoll_ratio          | DEM timestep equals the min collision time divided by this value      |    Real     |   50.0       |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 
-The following inputs must be preceded by "mfix" and are only relevant if running a problem to steady state.
+The following inputs must be preceded by "mfix." and are only relevant if running a problem to steady state.
 Currently, the criterion for setting "steady_state" to true is if "dt" is undefined in mfix.dat
 
 +-----------------------+-----------------------------------------------------------------------+-------------+------------+
