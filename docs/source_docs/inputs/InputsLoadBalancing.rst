@@ -6,7 +6,7 @@
 Gridding and Load Balancing
 ===========================
 
-The following inputs must be preceded by "amr" and determine how we create the grids.
+The following inputs must be preceded by "amr." and determine how we create the grids.
 
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                      | Description                                                           |   Type      | Default   |
@@ -24,7 +24,7 @@ The following inputs must be preceded by "amr" and determine how we create the g
 | blocking_factor_z    | Each grid must be divisible by blocking_factor_z in z-direction       |    Int      |  8        |
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 
-The following inputs must be preceded by "mfix" and determine how often we regrid.
+The following inputs must be preceded by "mfix." and determine how often we regrid.
 
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                      | Description                                                           |   Type      | Default   |
@@ -33,7 +33,7 @@ The following inputs must be preceded by "mfix" and determine how often we regri
 |                      | if regrid_int = -1 then no regridding will occur                      |             |           |
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 
-The following inputs must be preceded by "fabarray_mfiter" and determine how we create the logical tiles:
+The following inputs must be preceded by "fabarray_mfiter." and determine how we create the logical tiles:
 
 +----------------------+-----------------------------------------------------------------------+----------+-------------+
 |                      | Description                                                           | Type     | Default     |
@@ -42,7 +42,7 @@ The following inputs must be preceded by "fabarray_mfiter" and determine how we 
 |                      |        (3D CPU-only)                                                  |          | 1024000,8,8 |
 +----------------------+-----------------------------------------------------------------------+----------+-------------+
 
-The following inputs must be preceded by "particles"
+The following inputs must be preceded by "particles."
 
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 |                      | Description                                                           |   Type      | Default      |
@@ -68,7 +68,7 @@ the :cpp:`particles.max_grid_size` (in each direction) have no meaning. Therefor
 sizes should be set for particle load balancing. It may also be necessary to set the blocking factors to 1.
 
 
-The following inputs must be preceded by "mfix" and determine how we load balance:
+The following inputs must be preceded by "mfix." and determine how we load balance:
 
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 |                      | Description                                                           |   Type      | Default      |

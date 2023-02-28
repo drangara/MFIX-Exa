@@ -15,7 +15,7 @@ Building the PIC to DEM tool using CMake (from inside the build directory):
 
     cmake --build ./ --target pic2dem
 
-The following inputs must be preceded by "pic2dem".
+The following inputs must be preceded by "pic2dem.":
 
 +------------------------+---------------------------------------------------+--------+---------+
 |                        | Description                                       | Type   | Default |

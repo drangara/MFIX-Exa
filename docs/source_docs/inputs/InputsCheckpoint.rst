@@ -3,7 +3,7 @@
 Checkpoint/Restart
 ==================
 
-The following inputs must be preceded by "mfix" and control checkpoint/restart.
+The following inputs must be preceded by "mfix." and control checkpoint/restart.
 
 +-------------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                         | Description                                                           |   Type      | Default   |

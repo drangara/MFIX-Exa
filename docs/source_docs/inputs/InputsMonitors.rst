@@ -3,7 +3,7 @@
 Spatial averages
 ================
 
-The following inputs must be preceded by "mfix" and control whether to compute
+The following inputs must be preceded by "mfix." and control whether to compute
 spatial averages, and how often to output the results.  n is the number of
 spatial averages implicitly defined by the size of avg_region_x_w.
 
@@ -52,7 +52,7 @@ A Monitor is a tool for capturing data from the solver about the model.
 
 Data (such as volume fraction, pressure, velocity, etc.) for a given
 monitor region is written to a CSV file while the solver is running.
-To define monitors, the following inputs must be preceded by "mfix" prefix.
+To define monitors, the following inputs must be preceded by "mfix.":
 
 +--------------------+------------------------------------------------------+-------------+-----------+
 |                    | Description                                          |   Type      | Default   |
@@ -75,8 +75,8 @@ Region Selection
 
 To define a monitor, there must be a region already defined in the regions
 inputs. A Monitor region is a single point, plane, or volume. Multiple regions
-cannot be combined for a monitor. The following inputs must be preceded by the
-"mfix.monitors" prefix.
+cannot be combined for a monitor. The following inputs must be preceded by
+"mfix.monitors.":
 
 +------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                  | Description                                                           |   Type      | Default   |
@@ -97,8 +97,8 @@ Monitor Output
 The monitor data will be output to a file with name given by the input
 "plot_file", and the extension ``.csv`` is automatically added. The monitor
 output file is in Comma Separated Value (CSV) format. The first line of the file
-provides header information. The following inputs must be preceded by the
-"mfix.monitors" prefix.
+provides header information. The following inputs must be preceded by
+"mfix.monitors.":
 
 +-------------------------------+----------------------------------------------------------+-------------+-----------+
 |                               | Description                                              |   Type      | Default   |
@@ -139,7 +139,7 @@ Monitor Variables
 -----------------
 
 The variables to be monitored can be specified in the inputs by including the
-following input preceded by the "mfix.monitors" prefix.
+following input preceded by the "mfix.monitors.":
 
 +---------------------+--------------------------------------------------------------------+-------------+-----------+
 |                     | Description                                                        |   Type      | Default   |

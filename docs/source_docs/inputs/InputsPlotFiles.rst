@@ -3,7 +3,7 @@
 Plotfiles and Other Output
 ==========================
 
-The following inputs must be preceded by "mfix" and control frequency and naming of plotfile generation as well
+The following inputs must be preceded by "mfix." and control frequency and naming of plotfile generation as well
 as whether the EB geometry or level set should be written out, and if the particles should be written out in Ascii
 format (for debugging).
 
@@ -36,7 +36,7 @@ format (for debugging).
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 
 
-The following inputs must be preceded by "mfix" and control what variables will be written in plotfiles.
+The following inputs must be preceded by "mfix." and control what variables will be written in plotfiles.
 
 +---------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                     | Description                                                           |   Type      | Default   |
@@ -85,7 +85,7 @@ The following inputs must be preceded by "mfix" and control what variables will 
 +---------------------+-----------------------------------------------------------------------+-------------+-----------+
 
 
-The following inputs must be preceded by "mfix" and control whether the EB geometry or level set should be written out.
+The following inputs must be preceded by "mfix." and control whether the EB geometry or level set should be written out.
 
 +----------------------+-----------------------------------------------------------------------+-------------+-----------+
 |                      | Description                                                           |   Type      | Default   |
@@ -102,7 +102,7 @@ The following inputs must be preceded by "mfix" and control whether the EB geome
 
 
 `Ascent <ascent.readthedocs.io>`_ has been integrated into MFIX-Exa for *in situ* visualization. 
-For codes that have been built with Ascent support, the following inputs must be preceded by "ascent" 
+For codes that have been built with Ascent support, the following inputs must be preceded by "ascent." 
 and specifies the ascent actions for fluid and/or particles. The frequency which these are called 
 is controlled by `ascent_int` or `ascent_per_approx`, see above. Note that if an ascent pipeline 
 is being included in a GPU build/run, then you must enable managed memory, 
@@ -117,7 +117,9 @@ i.e., set `amrex.the_arena_is_managed = true`.
 +---------------------+-----------------------------------------------------------------------+-------------+-----------+
 
 
-The following inputs must be preceded by "mfix.solids" and allow to write additional plotfiles which contain only solids variables in specific regions at fixed timesteps or approximated simulation times. All these parameters are user-defined.
+The following inputs must be preceded by "mfix.solids." and allow to write additional plotfiles which
+contain only solids variables in specific regions at fixed timesteps or approximated simulation times.
+All these parameters are user-defined.
 
 +---------------------------+-----------------------------------------------------------------+-------------+-----------+
 |                           | Description                                                     |   Type      | Default   |
