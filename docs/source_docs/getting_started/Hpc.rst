@@ -12,6 +12,7 @@ Follow the guide here instead of the generic instructions.
    :maxdepth: 1
 
    hpc/Joule2
+   hpc/Joule2v2
 
 .. toctree::
    :caption: LCF Systems
