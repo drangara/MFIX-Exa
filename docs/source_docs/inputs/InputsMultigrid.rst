@@ -9,7 +9,7 @@ different solvers called by MFIX-Exa.
 NOTE: the nodal solver settings are read in directly by AMReX, 
 the MAC and diffusion settings by MFIX-Exa. 
 
-These control the nodal projection and must be preceded by "nodal_proj": 
+These control the nodal projection and must be preceded by "nodal_proj.": 
 
 +-------------------------+-----------------------------------------------------------------------+-------------+--------------+
 |                         |  Description                                                          |   Type      | Default      |
@@ -42,7 +42,7 @@ These control the nodal projection and must be preceded by "nodal_proj":
 |                         |  Options are ij, semi_structured or structured                        |             |              | 
 +-------------------------+-----------------------------------------------------------------------+-------------+--------------+
 
-These control the MAC projection and must be preceded by "mac_proj":
+These control the MAC projection and must be preceded by "mac_proj.":
 
 +-------------------------+-----------------------------------------------------------------------+-------------+--------------+
 |                         | Description                                                           |   Type      | Default      |
@@ -78,7 +78,7 @@ These control the MAC projection and must be preceded by "mac_proj":
 NOTE: If the :cpp:`nodal_proj` and :cpp:`mac_proj` :cpp:`hypre_namespace`'s are set, they must be distinct unless set to 
 :cpp:`hypre`, in which case the default behavior is recovered in which case hypre settings apply to all solvers.  
 
-These control the diffusion solver and must be preceded by "diffusion":
+These control the diffusion solver and must be preceded by "diffusion.":
 
 +-------------------------+-----------------------------------------------------------------------+-------------+--------------+
 |                         | Description                                                           |   Type      | Default      |

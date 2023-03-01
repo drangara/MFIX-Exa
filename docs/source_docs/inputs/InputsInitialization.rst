@@ -3,13 +3,11 @@
 Initialization
 ==============
 
-The following inputs must be preceded by "amr" and determine how we initialize a calculation:
+The following inputs must be preceded by "mfix." and determine how we initialize a calculation:
 
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 |                      | Description                                                           |   Type      | Default      |
 +======================+=======================================================================+=============+==============+
-| input_deck           | Read physical data from this file                                     |  String     |  mfix.dat    |
-+----------------------+-----------------------------------------------------------------------+-------------+--------------+
 | restart              | If set, then restart from this file rather than from scratch          |  String     |   None       |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 | repl_x               | Replicate initial data by this factor in the x-direction              |   Int       |    1         |
@@ -20,7 +18,7 @@ The following inputs must be preceded by "amr" and determine how we initialize a
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 
 
-The following inputs must be preceded by "mfix" and determine how we initialize a calculation:
+The following inputs must be preceded by "mfix." and determine how we initialize a calculation:
 
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 |                      | Description                                                           |   Type      | Default      |
@@ -33,7 +31,7 @@ The following inputs must be preceded by "mfix" and determine how we initialize 
 | initial_iterations   | How many pressure iterations before starting the first timestep       |  Int        |    3         |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 
-The following inputs must be preceded by "particles."
+The following inputs must be preceded by "particles.":
 
 +--------------------+---------------------------------------------------------------------------+-------------+-----------+
 |                    | Description                                                               |   Type      | Default   |
