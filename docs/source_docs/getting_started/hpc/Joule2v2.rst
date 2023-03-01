@@ -301,14 +301,14 @@ The following dependencies will need to be installed prior to following any of t
 
 #. Set environment helpers
 
-.. code:: bash
+   .. code:: bash
 
-   export CC=$(which mpicc)
-   export CXX=$(which mpic++)
-   export F77=$(which mpif77)
-   export FC=$(which mpifort)
-   export F90=$(which mpif90)
-
+      export CC=$(which mpicc)
+      export CXX=$(which mpic++)
+      export F77=$(which mpif77)
+      export FC=$(which mpifort)
+      export F90=$(which mpif90)
+      mkdir $HOME/scratch && cd $HOME/scratch 
 
 #. HYPRE
 
@@ -390,7 +390,7 @@ The following dependencies will need to be installed prior to following any of t
       make -j8 install
       popd
 
-#. CSG EB library  **optional**) 
+#. CSG EB library  (**gmake**) 
 
 For the gmake instaill instructions you will need to install `libcsgeb` to `$CSG_LIB_DIR` using either cmake or gmake:
 
