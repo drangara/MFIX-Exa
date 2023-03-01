@@ -6,15 +6,15 @@ review the general notes below and `Basics`_ section first.
 
 * To access Joule2, you will need an NETL HPC account, 
   a yubikey (2FA) and the 
-  `HPC client <https://hpc.netl.doe.gov/support/hpc-client/index.html>`_
-* These instructions build on the login nodes using `-j8` CPUs. 
+  `HPC client. <https://hpc.netl.doe.gov/support/hpc-client/index.html>`_
+* These instructions build MFIX-Exa on the login nodes using `-j8` CPUs. 
   You may have to decrease this value if there is high traffic 
   or you may want to increase this value if you are on a compute 
   node interactively. 
 * The cmake instructions compile to a `build` directory. 
   The gmake instructions compile to a `exec` directory. 
-* For the dependencies, we assume you will set the environment 
-  path variables:
+* For the dependencies, it is assumed that you have set the 
+  following environment variables:
 
   .. code:: bash
 
@@ -23,11 +23,12 @@ review the general notes below and `Basics`_ section first.
      export CSG_LIB_DIR=$HOME/<path/to/my/csg-lib-install-dir>
      export ASCENT_INSTALL_DIR=$HOME/<path/to/my/ascent-install-dir>
 
-  to a descriptive path that the user has read/write access to. 
+  to a path that you have read/write access to. 
   You will need to recall these paths later if you want to build 
   MFIX-Exa with the optional dependencies. 
 * After building the `mfix` executable (with cmake), you can 
-  build the PIC-to-DEM restarter app by: 
+  build the PIC-to-DEM restarter app by executing the following command 
+  in the `build` directory
 
   .. code:: bash
 
@@ -40,7 +41,7 @@ Basics
 Clone the source code
 ~~~~~~~~~~~~~~~~~~~~~
    
-Before building the code, first clone the code, checkout the desired branch, 
+Before building, first clone the code, checkout the desired branch, 
 (the default is develop), update the submodules and create a build directory 
 (for cmake).
 
@@ -72,7 +73,7 @@ The GPU-enabled builds additionally require
 
     module load cuda/11.3
 
-Full builds, i.e., with external dependencies, also require setting 
+Full builds that utilize external dependencies, also require setting 
 certain environment variables as discussed below. 
 
 
@@ -294,7 +295,8 @@ gmake
 Optional build dependencies
 ---------------------------
 
-The following dependencies will need to be installed prior to following any of the full build instructions above. 
+The following dependencies need to be built and installed 
+prior to following any of the full build instructions above. 
 
 #. Set environment helpers
 
@@ -389,7 +391,7 @@ The following dependencies will need to be installed prior to following any of t
 
 #. CSG EB library  (**gmake**) 
 
-   For the gmake instaill instructions you will need to install
+   For the gmake install instructions, you need to install
    `libcsgeb` to `$CSG_LIB_DIR` using either cmake or gmake:
 
    .. tabs::
