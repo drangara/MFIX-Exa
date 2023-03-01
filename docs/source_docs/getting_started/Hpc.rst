@@ -8,19 +8,18 @@ Follow the guide here instead of the generic instructions.
 
 
 .. toctree::
+   :caption: DOE Systems
+   :maxdepth: 1
+
+   hpc/Crusher
+   hpc/Perlmutter
+   hpc/Polaris
+   hpc/Summit
+
+
+.. toctree::
    :caption: NETL Systems
    :maxdepth: 1
 
    hpc/Joule2
-   hpc/Joule2v2
 
-.. toctree::
-   :caption: LCF Systems
-   :maxdepth: 1
-
-   hpc/Cori
-   hpc/Crusher
-   hpc/Perlmutter
-   hpc/Polaris
-   hpc/Spock
-   hpc/Summit

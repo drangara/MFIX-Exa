@@ -1,41 +1,50 @@
 Joule 2.0
 ==========
 
+If this is your first time building MFIX-Exa on Joule2, please 
+review the general notes below and `Basics`_ section first.
+
+* To access Joule2, you will need an NETL HPC account, 
+  a yubikey (2FA) and the 
+  `HPC client <https://hpc.netl.doe.gov/support/hpc-client/index.html>`_
+* These instructions build on the login nodes using `-j8` CPUs. 
+  You may have to decrease this value if there is high traffic 
+  or you may want to increase this value if you are on a compute 
+  node interactively. 
+* The cmake instructions compile to a `build` directory. 
+  The gmake instructions compile to a `exec` directory. 
+* For the dependencies, we assume you will set the environment 
+  path variables:
+
+  .. code:: bash
+
+     export HYPRE_INSTALL_DIR=$HOME/<path/to/my/hypre-install-dir>
+     export CSG_INSTALL_DIR=$HOME/<path/to/my/csg-dep-install-dir>
+     export CSG_LIB_DIR=$HOME/<path/to/my/csg-lib-install-dir>
+     export ASCENT_INSTALL_DIR=$HOME/<path/to/my/ascent-install-dir>
+
+  to a descriptive path that the user has read/write access to. 
+  You will need to recall these paths later if you want to build 
+  MFIX-Exa with the optional dependencies. 
+* After building the `mfix` executable (with cmake), you can 
+  build the PIC-to-DEM restarter app by: 
+
+  .. code:: bash
+
+      cmake --build . --target pic2dem
+
+
 Basics
--------
+------
 
-Access
->>>>>>>
-
-You need an NETL HPC account, yubikey and the `HPC client <https://hpc.netl.doe.gov/support/hpc-client/index.html>`_
-
-
-Running Jobs
->>>>>>>>>>>>
-
-Common Slurm commands:
-
-* **sinfo** see available/allocated resources
-* **sbatch runit_cpu.sh** submit a cpu job to the queue
-* **squeue -u USER** check job status of user USER
-* **squeue -p PARTITION** check job status of partition PARTITION
-* **scancel JOBID** kill a job with id JOBID
-* **salloc -N 1 -p gpu** grab a GPU node interactively (for up to 48 hrs) 
-* **salloc -N 2 -p dev -q dev** grab two development nodes (for up to 2 hrs)
-
-
-Building MFIX-Exa: cmake
--------------------------
-
-Standalone Build
->>>>>>>>>>>>>>>>>
-
-#. Clone
+Clone the source code
+~~~~~~~~~~~~~~~~~~~~~
    
-   For the basic, standalone CPU and GPU builds, first clone the code, 
-   checkout the desired branch, update the submodules and create a build directory
+Before building the code, first clone the code, checkout the desired branch, 
+(the default is develop), update the submodules and create a build directory 
+(for cmake).
 
-   .. code:: bash
+.. code:: bash
 
     git clone https://mfix.netl.doe.gov/gitlab/exa/mfix.git
     cd mfix
@@ -43,125 +52,260 @@ Standalone Build
     git submodule update --init
     mkdir build && cd build/
 
-#. Build mfix
+
+Modules
+~~~~~~~
+
+All of the build instructions below have been tested with the 
+following modules
+
+.. code:: bash 
+
+    module purge
+    module load cmake/3.23.1
+    module load gnu/9.3.0
+    module load openmpi/4.0.4_gnu9.3
+
+The GPU-enabled builds additionally require
+
+.. code:: bash 
+
+    module load cuda/11.3
+
+Full builds, i.e., with external dependencies, also require setting 
+certain environment variables as discussed below. 
+
+
+Building MFIX-Exa
+-----------------
+
+The commands below are the superbuild instructions, i.e., 
+AMReX is built as part of the MFIX-Exa build process. 
+To build MFIX-Exa with hypre, csg and/or ascent dependencies, 
+you first need to build and install these libraries and their dependencies.
+Instructions on building the necessary dependencies are below 
+and should be successfully installed first. There are two primary 
+methods of building the code `cmake` and `gmake` which are provided 
+seperately below.  
+
+cmake
+~~~~~
+
+.. tabs::
    
-   For a CPU load the necessary modules and build from the head node. For GPU first connect to an interactive node and then build:
+   .. tab:: CPU
+
+      .. code:: bash
+
+         cmake -DCMAKE_C_COMPILER=gcc \
+               -DCMAKE_CXX_COMPILER=g++ \
+               -DMFIX_MPI=yes \
+               -DMFIX_OMP=no \
+               -DMFIX_GPU_BACKEND=NONE \
+               -DAMReX_TINY_PROFILE=no \
+               -DMFIX_CSG=no \
+               -DMFIX_HYPRE=no \
+               -DCMAKE_BUILD_TYPE=Release \
+               ../
+         make -j8
+
+   .. tab:: GPU
+
+      .. code:: bash
+
+         cmake -DCMAKE_C_COMPILER=gcc \
+               -DCMAKE_CXX_COMPILER=g++ \
+               -DMFIX_MPI=yes \
+               -DMFIX_OMP=no \
+               -DMFIX_CSG=no \
+               -DMFIX_HYPRE=no \
+               -DMFIX_GPU_BACKEND=CUDA \
+               -DAMReX_CUDA_ARCH=6.0 \
+               -DCMAKE_CUDA_ARCHITECTURES="60" \
+               -DGPUS_PER_SOCKET=1 \
+               -DGPUS_PER_NODE=2 \
+               -DAMReX_TINY_PROFILE=no \
+               -DCMAKE_BUILD_TYPE=Release \
+               ../
+         make -j8
+
+   .. tab:: CPU-full
+
+      .. code:: bash
+
+         export HYPRE_DIR=$HYPRE_INSTALL_DIR
+         export HYPRE_ROOT=$HYPRE_DIR
+         export HYPRE_LIBRARIES=$HYPRE_DIR/lib
+         export HYPRE_INCLUDE_DIRS=$HYPRE_DIR/include
+
+         export ASCENT_DIR=$ASCENT_INSTALL_DIR
+         export CONDUIT_DIR=$ASCENT_DIR
+         export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/ascent
+         export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/conduit
+
+         export CSG_DIR=$CSG_INSTALL_DIR/csg-deps
+         export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
+
+         module load boost/1.77.0_gnu9.3
+         export Boost_INCLUDE_DIR="-I/nfs/apps/Libraries/Boost/1.77.0/gnu/9.3.0/openmpi/4.0.4/include"
+
+         cmake -DCMAKE_C_COMPILER=gcc \
+               -DCMAKE_CXX_COMPILER=g++ \
+               -DMFIX_MPI=yes \
+               -DMFIX_OMP=no \
+               -DMFIX_CSG=yes \
+               -DMFIX_HYPRE=yes \
+               -DAMReX_ASCENT=yes \
+               -DAMReX_CONDUIT=yes \
+               -DMFIX_GPU_BACKEND=NONE \
+               -DAMReX_TINY_PROFILE=no \
+               -DCMAKE_BUILD_TYPE=Release \
+               ../mfix
+         make -j8
+
+   .. tab:: GPU-full
+
+      .. code:: bash
+
+         export HYPRE_DIR=$HYPRE_INSTALL_DIR/hypre
+         export HYPRE_ROOT=$HYPRE_DIR
+         export HYPRE_LIBRARIES=$HYPRE_DIR/lib
+         export HYPRE_INCLUDE_DIRS=$HYPRE_DIR/include
+
+         export ASCENT_DIR=$ASCENT_INSTALL_DIR/ascent
+         export CONDUIT_DIR=$ASCENT_DIR
+         export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/ascent
+         export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/conduit
+
+         export CSG_DIR=$CSG_INSTALL_DIR/csg-deps
+         export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
+
+         module load boost/1.77.0_gnu9.3
+         export BOOST_ROOT="/nfs/apps/Libraries/Boost/1.77.0/gnu/9.3.0/openmpi/4.0.4"
+
+         cmake -DCMAKE_C_COMPILER=gcc \
+               -DCMAKE_CXX_COMPILER=g++ \
+               -DBoost_INCLUDE_DIR="$BOOST_ROOT/include" \
+               -DMFIX_MPI=yes \
+               -DMFIX_OMP=no \
+               -DMFIX_CSG=yes \
+               -DMFIX_HYPRE=yes \
+               -DAMReX_ASCENT=yes \
+               -DAMReX_CONDUIT=yes \
+               -DMFIX_GPU_BACKEND=CUDA \
+               -DAMReX_CUDA_ARCH=6.0 \
+               -DCMAKE_CUDA_ARCHITECTURES="60" \
+               -DGPUS_PER_SOCKET=1 \
+               -DGPUS_PER_NODE=2 \
+               -DAMReX_TINY_PROFILE=no \
+               -DCMAKE_BUILD_TYPE=Release \
+               ../mfix
+         make -j8
+
+
+gmake
+~~~~~
    
-   .. tabs::
-      
-      .. tab:: CPU
+.. tabs::
+   
+   .. tab:: CPU
 
-         .. code:: bash
+      .. code:: bash
 
-            ## load the necessary modules
-            module purge
-            module load vgl
-            module load grace
-            module load cmake/3.23.1
-            module load gnu/9.3.0
-            module load openmpi/4.0.4_gnu9.3
+         make -C exec -j8 \
+              COMP=gnu \
+              USE_MPI=TRUE \
+              USE_OMP=FALSE \
+              USE_CUDA=FALSE \
+              USE_TINY_PROFILE=FALSE \
+              USE_CSG=FALSE \
+              USE_HYPRE=FALSE \
+              DEBUG=FALSE
+         
 
-            ## build mfix
-            cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_Fortran_COMPILER=gfortran -DMFIX_MPI=yes -DMFIX_OMP=no -DMFIX_GPU_BACKEND=NONE -DAMReX_TINY_PROFILE=no -DMFIX_CSG=no -DMFIX_HYPRE=no -DCMAKE_BUILD_TYPE=Release ../mfix
-            make -j 8
+   .. tab:: GPU
 
-            ## uncomment to build the pic2dem restarter app
-            #cmake -j8 --build . --target pic2dem
-
-      .. tab:: GPU
-
-         .. code:: bash
-            
-            ## connect to an interactive node
-            salloc -N 1 -p gpu
-
-            ## load Modules
-            module purge
-            module load vgl
-            module load grace
-            module load cmake/3.23.1
-            module load cuda/11.3
-            module load gnu/9.3.0
-            module load openmpi/4.0.4_gnu9.3
-
-            ## build mfix
-            cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_Fortran_COMPILER=gfortran -DMFIX_MPI=yes -DMFIX_OMP=no -DMFIX_GPU_BACKEND=CUDA -DAMReX_TINY_PROFILE=no -DMFIX_CSG=no -DMFIX_HYPRE=no -DCMAKE_BUILD_TYPE=Release ../mfix  &&  make -j 20
-
-            ## uncomment to build the pic2dem restarter app
-            #cmake -j8 --build . --target pic2dem
+      .. code:: bash
+         
+         make -C exec -j8 
+              COMP=gnu \
+              USE_MPI=TRUE \
+              USE_OMP=FALSE \
+              USE_CUDA=TRUE \
+              CUDA_ARCH=6.0 \
+              USE_TINY_PROFILE=FALSE \
+              USE_CSG=FALSE \
+              USE_HYPRE=FALSE \
+              DEBUG=FALSE
 
 
+   .. tab:: CPU-full
 
-Full Build
->>>>>>>>>>>
+      .. code:: bash
 
-To build MFIX-Exa with hypre, csg and/or ascent dependencies, you first need to build and install these libraries and their dependencies.
+         export HYPRE_DIR=$HYPRE_INSTALL_DIR
+         export HYPRE_HOME=$HYPRE_DIR
 
-Install dependencies
-<<<<<<<<<<<<<<<<<<<<<
+         export ASCENT_DIR=$ASCENT_INSTALL_DIR
+         export CONDUIT_DIR=$ASCENT_DIR
 
-#. Setup
+         export CSGEB_HOME=$CSG_LIB_DIR
+
+         make -C exec -j8 \
+              COMP=gnu \
+              USE_MPI=TRUE \
+              USE_OMP=FALSE \
+              USE_CUDA=FALSE \
+              USE_TINY_PROFILE=FALSE \
+              USE_CSG=TRUE \
+              USE_HYPRE=TRUE \
+              USE_ASCENT=TRUE \
+              USE_CONDUIT=TRUE \
+              DEBUG=FALSE
+
+
+   .. tab:: GPU-full
+
+      .. code:: bash
+         
+         export HYPRE_DIR=$HYPRE_INSTALL_DIR
+         export HYPRE_HOME=$HYPRE_DIR
+
+         export ASCENT_DIR=$ASCENT_INSTALL_DIR
+         export CONDUIT_DIR=$ASCENT_DIR
+
+         export CSGEB_HOME=$CSG_LIB_DIR
+
+         make -C exec -j8 COMP=gnu \
+              USE_MPI=TRUE \
+              USE_OMP=FALSE \
+              USE_CUDA=TRUE \
+              CUDA_ARCH=6.0 \
+              USE_TINY_PROFILE=FALSE \
+              USE_CSG=TRUE \
+              USE_HYPRE=TRUE \
+              USE_ASCENT=TRUE \
+              USE_CONDUIT=TRUE \
+              DEBUG=FALSE
+
+
+
+
+Optional build dependencies
+---------------------------
+
+The following dependencies will need to be installed prior to following any of the full build instructions above. 
+
+#. Set environment helpers
 
    .. code:: bash
 
-      ## create directories for installation
-      cd ~/packages/
-      rm -rf old.mfix-exa_deps/
-      mv mfix-exa_deps/ old.mfix-exa_deps/ 
-      cd $HOME
-      rm -rf tmp.bld-deps/ 
-      mkdir tmp.bld-deps && cd tmp.bld-deps/
-
-      ## set and init install directories
-      export MY_INSTALL_DIR=$(pwd)/mfix-exa_deps
-      export HYPRE_INSTALL_DIR=$MY_INSTALL_DIR/hypre
-      export CSG_INSTALL_DIR=$MY_INSTALL_DIR/csg-deps
-      export ASCENT_INSTALL_DIR=$MY_INSTALL_DIR/ascent
-      mkdir -p $HYPRE_INSTALL_DIR 
-      mkdir $CSG_INSTALL_DIR 
-      mkdir $ASCENT_INSTALL_DIR 
-
-#. Load modules and set helpers
-
-   For CPU we'll just build on the head node, but for GPU we connect to an interactive node first:
-
-   .. tabs::
-
-      .. tab:: CPU
-
-         .. code:: bash
-
-            module load cmake/3.23.1
-            module load gnu/9.3.0
-            module load openmpi/4.0.4_gnu9.3
-            module load boost/1.77.0_gnu9.3
-
-            export CC=$(which mpicc)
-            export CXX=$(which mpic++)
-            export F77=$(which mpif77)
-            export FC=$(which mpifort)
-            export F90=$(which mpif90)
-
-      .. tab:: GPU
-
-         .. code:: bash
-
-            ## connect to an interactive node
-            salloc -N 1 -p gpu
-            
-            ## load modules
-            module load cmake/3.23.1
-            module load cuda/11.3
-            module load gnu/9.3.0
-            module load openmpi/4.0.4_gnu9.3
-            module load boost/1.77.0_gnu9.3
-
-            export CC=$(which mpicc)
-            export CXX=$(which mpic++)
-            export F77=$(which mpif77)
-            export FC=$(which mpifort)
-            export F90=$(which mpif90)
-
+      export CC=$(which mpicc)
+      export CXX=$(which mpic++)
+      export F77=$(which mpif77)
+      export FC=$(which mpifort)
+      export F90=$(which mpif90)
+      mkdir $HOME/scratch && cd $HOME/scratch 
 
 #. HYPRE
 
@@ -185,8 +329,18 @@ Install dependencies
             git clone https://github.com/hypre-space/hypre.git
             pushd hypre/src/
             git checkout v2.26.0
-            ./configure --prefix=$HYPRE_INSTALL_DIR --without-superlu --disable-bigint --without-openmp --enable-shared  --with-MPI --with-cuda --with-gpu-arch='60' --with-cuda-home=$CUDA_HOME --enable-cusparse --enable-curand
-            make -j32 install 
+            ./configure --prefix=$HYPRE_INSTALL_DIR \
+                        --without-superlu \
+                        --disable-bigint \
+                        --without-openmp \
+                        --enable-shared  \
+                        --with-MPI \
+                        --with-cuda \
+                        --with-gpu-arch='60' \
+                        --with-cuda-home=$CUDA_HOME \
+                        --enable-cusparse \
+                        --enable-curand
+            make -j8 install 
             popd
 
 #. Catch2
@@ -233,6 +387,40 @@ Install dependencies
       make -j8 install
       popd
 
+#. CSG EB library  (**gmake**) 
+
+   For the gmake instaill instructions you will need to install
+   `libcsgeb` to `$CSG_LIB_DIR` using either cmake or gmake:
+
+   .. tabs::
+
+      .. tab:: cmake
+
+         .. code:: bash
+
+            cd subprojects/csg-eb
+
+            module load boost/1.77.0_gnu9.3
+
+            export Boost_INCLUDE_DIR="-I/nfs/apps/Libraries/Boost/1.77.0/gnu/9.3.0/openmpi/4.0.4/include"
+            export CSG_DIR=$CSG_INSTALL_DIR
+            export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
+
+            cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$CSG_LIB_DIR
+            cd build
+            make -j8 install
+
+      .. tab:: gmake
+
+         .. code:: bash
+
+            make -C subprojects/csg-eb install DESTDIR=$CSG_LIB_DIR \
+            BOOST_HOME=/nfs/apps/Libraries/Boost/1.77.0/gnu/9.3.0/openmpi/4.0.4 \
+            PEGTL_HOME=$CSG_DIR \
+            CGAL_HOME=$CSG_DIR \
+            CATCH2_HOME=$CSG_DIR \
+            ENABLE_CGAL=TRUE
+
 #. Conduit
 
    .. code:: bash
@@ -241,7 +429,11 @@ Install dependencies
       pushd conduit/
       git checkout v0.8.4
       mkdir build && cd build
-      cmake -S ../src -DCMAKE_INSTALL_PREFIX=$ASCENT_INSTALL_DIR -DCMAKE_BUILD_TYPE=Release -DENABLE_OPENMP=OFF -DENABLE_MPI=ON -DENABLE_CUDA=OFF 
+      cmake -S ../src -DCMAKE_INSTALL_PREFIX=$ASCENT_INSTALL_DIR \
+            -DENABLE_OPENMP=OFF \
+            -DENABLE_MPI=ON \
+            -DENABLE_CUDA=OFF \
+            -DCMAKE_BUILD_TYPE=Release
       make -j8 install
       popd
 
@@ -253,7 +445,15 @@ Install dependencies
       pushd vtk-m/
       git checkout v1.9.0
       mkdir build && cd build/
-      cmake -S ../ -DCMAKE_INSTALL_PREFIX=$ASCENT_INSTALL_DIR -DCMAKE_BUILD_TYPE=Release -DVTKm_ENABLE_OPENMP=OFF -DVTKm_ENABLE_MPI=ON -DVTKm_ENABLE_CUDA=OFF -DVTKm_USE_64BIT_IDS=OFF -DVTKm_USE_DOUBLE_PRECISION=ON -DVTKm_USE_DEFAULT_TYPES_FOR_ASCENT=ON -DVTKm_NO_DEPRECATED_VIRTUAL=ON 
+      cmake -S ../ -DCMAKE_INSTALL_PREFIX=$ASCENT_INSTALL_DIR \
+            -DVTKm_ENABLE_OPENMP=OFF \
+            -DVTKm_ENABLE_MPI=ON \
+            -DVTKm_ENABLE_CUDA=OFF \
+            -DVTKm_USE_64BIT_IDS=OFF \
+            -DVTKm_USE_DOUBLE_PRECISION=ON \
+            -DVTKm_USE_DEFAULT_TYPES_FOR_ASCENT=ON \
+            -DVTKm_NO_DEPRECATED_VIRTUAL=ON \
+            -DCMAKE_BUILD_TYPE=Release
       make -j8 install
       popd
 
@@ -264,334 +464,87 @@ Install dependencies
       git clone --recursive https://github.com/Alpine-DAV/ascent.git
       pushd ascent
       mkdir build && cd build/
-      cmake -S ../src -DCMAKE_INSTALL_PREFIX=$ASCENT_INSTALL_DIR -DCMAKE_BUILD_TYPE=Release -DCONDUIT_DIR=$ASCENT_INSTALL_DIR -DVTKM_DIR=$ASCENT_INSTALL_DIR -DENABLE_VTKH=ON -DENABLE_FORTRAN=OFF -DENABLE_PYTHON=OFF -DENABLE_DOCS=OFF -DBUILD_SHARED_LIBS=ON
+      cmake -S ../src -DCMAKE_INSTALL_PREFIX=$ASCENT_INSTALL_DIR \
+            -DCONDUIT_DIR=$ASCENT_INSTALL_DIR \
+            -DVTKM_DIR=$ASCENT_INSTALL_DIR \
+            -DENABLE_VTKH=ON \
+            -DENABLE_FORTRAN=OFF \
+            -DENABLE_PYTHON=OFF \
+            -DENABLE_DOCS=OFF \
+            -DBUILD_SHARED_LIBS=ON \
+            -DCMAKE_BUILD_TYPE=Release 
       make -j8 install
       popd
 
 
-Build mfix
-<<<<<<<<<<<
+Running Jobs
+------------
 
-#. Once the above dependencies are built, clone and load the environment necessary for MFIX-Exa
+Common Slurm commands:
 
-   .. tabs::
+* **sinfo** see available/allocated resources
+* **sbatch runit_cpu.sh** submit a cpu job to the queue
+* **squeue -u USER** check job status of user USER
+* **squeue -p PARTITION** check job status of partition PARTITION
+* **scancel JOBID** kill a job with id JOBID
+* **salloc -N 1 -p gpu** grab a GPU node interactively (for up to 48 hrs) 
+* **salloc -N 2 -p dev -q dev** grab two development nodes (for up to 2 hrs)
 
-      .. tab:: CPU
+Example run scripts: 
 
-         .. code:: bash
-
-            ## Clone
-            git clone https://mfix.netl.doe.gov/gitlab/exa/mfix.git
-            cd mfix
-            git checkout develop
-            git submodule update --init
-            mkdir build && cd build/
-
-            ## load the necessary modules
-            module purge
-            module load vgl
-            module load grace
-            module load cmake/3.23.1
-            module load gnu/9.3.0
-            module load openmpi/4.0.4_gnu9.3
-            module load boost/1.77.0_gnu9.3
-
-            export MY_INSTALL_DIR=$HOME/packages/mfix-exa_deps
-            export HYPRE_DIR=$MY_INSTALL_DIR/hypre
-            export HYPRE_ROOT=$HYPRE_DIR
-            export HYPRE_LIBRARIES=$HYPRE_DIR/lib
-            export HYPRE_INCLUDE_DIRS=$HYPRE_DIR/include
-
-            export Boost_INCLUDE_DIR="-I/nfs/apps/Libraries/Boost/1.77.0/gnu/9.3.0/openmpi/4.0.4/include"
-
-            export ASCENT_DIR=$MY_INSTALL_DIR/ascent
-            export CONDUIT_DIR=$ASCENT_DIR
-            export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/ascent
-            export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/conduit
-
-            export CSG_DIR=$MY_INSTALL_DIR/csg-deps
-            export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
-
-      .. tab:: GPU
-
-         .. code:: bash
-
-            ## Clone
-            git clone https://mfix.netl.doe.gov/gitlab/exa/mfix.git
-            cd mfix
-            git checkout develop
-            git submodule update --init
-            mkdir build && cd build/
-
-            ## load the necessary modules
-            module purge
-            module load vgl
-            module load grace
-            module load cmake/3.23.1
-            module load cuda/11.3
-            module load gnu/9.3.0
-            module load openmpi/4.0.4_gnu9.3
-
-
-            export MY_INSTALL_DIR=$HOME/mfix-exa_deps_gnu9.3_cuda11.3
-            export HYPRE_DIR=$MY_INSTALL_DIR/hypre
-            export HYPRE_ROOT=$HYPRE_DIR
-            export HYPRE_LIBRARIES=$HYPRE_DIR/lib
-            export HYPRE_INCLUDE_DIRS=$HYPRE_DIR/include
-
-            export ASCENT_DIR=$MY_INSTALL_DIR/ascent
-            export CONDUIT_DIR=$ASCENT_DIR
-            export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/ascent
-            export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/conduit
-
-            export CSG_DIR=$MY_INSTALL_DIR/csg-deps
-            export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
-
-            export BOOST_ROOT="/nfs/apps/Libraries/Boost/1.77.0/gnu/9.3.0/openmpi/4.0.4"
-
-
-#. Build MFIX-Exa
-
-   .. tabs::
-
-      .. tab:: CPU
-
-         .. code:: bash
-
-            cmake -DCMAKE_C_COMPILER=gcc \
-                  -DCMAKE_CXX_COMPILER=g++ \
-                  -DCMAKE_Fortran_COMPILER=gfortran \
-                  -DMFIX_MPI=yes \
-                  -DMFIX_OMP=no \
-                  -DMFIX_GPU_BACKEND=NONE \
-                  -DMFIX_CSG=yes \
-                  -DMFIX_HYPRE=yes \
-                  -DAMReX_ASCENT=yes \
-                  -DAMReX_CONDUIT=yes \
-                  -DAMReX_TINY_PROFILE=no \
-                  -DCMAKE_BUILD_TYPE=Release \
-                  ../mfix
-            make -j 8
-
-            ## uncomment to build the pic2dem restarter app
-            #cmake -j8 --build . --target pic2dem
-
-      .. tab:: GPU
-
-         .. code:: bash
-
-            cmake -DCMAKE_C_COMPILER=gcc \
-                  -DCMAKE_CXX_COMPILER=g++ \
-                  -DCMAKE_Fortran_COMPILER=gfortran \
-                  -DBoost_INCLUDE_DIR="$BOOST_ROOT/include" \
-                  -DMFIX_MPI=yes \
-                  -DMFIX_OMP=no \
-                  -DMFIX_GPU_BACKEND=CUDA \
-                  -DAMReX_CUDA_ARCH=6.0 \
-                  -DGPUS_PER_SOCKET=1 \
-                  -DGPUS_PER_NODE=2 \
-                  -DMFIX_CSG=yes \
-                  -DMFIX_HYPRE=yes \
-                  -DAMReX_ASCENT=yes \
-                  -DAMReX_CONDUIT=yes \
-                  -DAMReX_TINY_PROFILE=no \
-                  -DCMAKE_BUILD_TYPE=Release \
-                  ../mfix
-            make -j 32
-
-
-
-Building MFIX-Exa: gmake
--------------------------
-
-Standalone Build
->>>>>>>>>>>>>>>>>
-
-#. Clone
-   
-   For the basic, standalone CPU and GPU builds, first clone the code, 
-   checkout the desired branch and update the submodules
-
-   .. code:: bash
-
-    ## Clone
-    git clone https://mfix.netl.doe.gov/gitlab/exa/mfix.git
-    cd mfix
-    git checkout develop
-    git submodule update --init
-
-#. Build mfix
-   
-   For a CPU load the necessary modules and build from the head node. For GPU first connect to an interactive node and then build:
-   
-   .. tabs::
+.. tabs::
       
-      .. tab:: CPU
+   .. tab:: CPU
 
-         .. code:: bash
+      .. code:: bash
 
-            ## load the necessary modules
-            module purge
-            module load vgl
-            module load grace
-            module load cmake/3.23.1
-            module load gnu/9.3.0
-            module load openmpi/4.0.4_gnu9.3
+         #!/bin/bash -l
 
-            ## build mfix
-            make -C exec -j8 COMP=gnu USE_MPI=TRUE USE_OMP=FALSE USE_CUDA=FALSE USE_TINY_PROFILE=FALSE USE_CSG=FALSE USE_HYPRE=FALSE DEBUG=FALSE
-            
-
-      .. tab:: GPU
-
-         .. code:: bash
-            
-            ## connect to an interactive node
-            salloc -N 1 -p gpu
-
-            ## load Modules
-            module purge
-            module load vgl
-            module load grace
-            module load cmake/3.23.1
-            module load cuda/11.3
-            module load gnu/9.3.0
-            module load openmpi/4.0.4_gnu9.3
-
-            ## build mfix
-            make -C exec -j8 COMP=gnu USE_MPI=TRUE USE_OMP=FALSE USE_CUDA=TRUE CUDA_ARCH=6.0 USE_TINY_PROFILE=FALSE USE_CSG=FALSE USE_HYPRE=FALSE DEBUG=FALSE
+         ##Accounting
+         #SBATCH --partition=general  #bigmem, dev
+         #SBATCH --qos=normal         #long, dev
+         
+         ##Submission
+         #SBATCH --nodes=1
+         #SBATCH --job-name="mfix-exa-run" 
+         #SBATCH --output=job.out
+         #SBATCH --mail-user=first.last@netl.doe.gov
+         #SBATCH --mail-type=ALL
+         
+         ##Load Modules
+         module purge
+         module load gnu/9.3.0
+         module load openmpi/4.0.4_gnu9.3
+         
+         ##Run the program
+         mpirun -np 36 ./mfix inputs > screen.txt
 
 
-Full Build
->>>>>>>>>>>
+   .. tab:: GPU
 
-To build MFIX-Exa with hypre, csg and/or ascent dependencies, you first need to build and install these libraries and their dependencies.
+      .. code:: bash
 
-#. First `Install dependencies`_
+         #!/bin/bash -l
 
-#. Then, install `libcsgeb` to `$HOME/install_csg_eb` using either cmake or gmake:
+         ##Accounting
+         #SBATCH --partition=gpu
+         #SBATCH --qos=normal         #long
+         
+         ##Submission
+         #SBATCH --nodes=2
+         #SBATCH --ntasks-per-node=2
+         #SBATCH --ntasks-per-socket=1
+         #SBATCH --job-name="mfix-exa-run"
+         #SBATCH --output=job.out
+         #SBATCH --mail-user=first.last@netl.doe.gov
+         #SBATCH --mail-type=ALL
+         
+         ##Load Modules
+         module purge
+         module load cuda/11.3
+         module load gnu/9.3.0
+         module load openmpi/4.0.4_gnu9.3
+         
+         ##Run the program
+         mpirun -np 4 -npersocket 1 ./mfix inputs > screen.txt
 
-   .. tabs::
-
-      .. tab:: cmake
-
-         .. code:: bash
-
-            ## Clone
-            git clone https://mfix.netl.doe.gov/gitlab/exa/mfix.git
-            cd mfix
-            git checkout develop
-            git submodule update --init
-            cd subprojects/csg-eb
-
-            ## Install library
-            export Boost_INCLUDE_DIR="-I/nfs/apps/Libraries/Boost/1.77.0/gnu/9.3.0/openmpi/4.0.4/include"
-            export CSG_DIR=$MY_INSTALL_DIR/csg-deps
-            export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR`
-
-            cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$HOME/install_csg_eb
-            cd build
-            make -j8 install
-
-      .. tab:: gmake
-
-         .. code:: bash
-
-            ## Clone
-            git clone https://mfix.netl.doe.gov/gitlab/exa/mfix.git
-            cd mfix
-            git checkout develop
-            git submodule update --init
-
-            ## Install library
-            make -C subprojects/csg-eb install DESTDIR=$HOME/install_csg_eb \
-            BOOST_HOME=/nfs/apps/Libraries/Boost/1.77.0/gnu/9.3.0/openmpi/4.0.4 \
-            PEGTL_HOME=$HOME/install \
-            CGAL_HOME=$HOME/install \
-            CATCH2_HOME=$HOME/install \
-            ENABLE_CGAL=TRUE
-
-
-#. Load the necessary modules and environment
-   
-   .. tabs::
-      
-      .. tab:: CPU
-
-         .. code:: bash
-
-            ## load the necessary modules
-            module purge
-            module load vgl
-            module load grace
-            module load cmake/3.23.1
-            module load gnu/9.3.0
-            module load openmpi/4.0.4_gnu9.3
-
-            export MY_INSTALL_DIR=$HOME/packages/mfix-exa_deps
-            export HYPRE_DIR=$MY_INSTALL_DIR/hypre
-            export HYPRE_HOME=$HYPRE_DIR
-
-            export ASCENT_DIR=$MY_INSTALL_DIR/ascent
-            export CONDUIT_DIR=$ASCENT_DIR
-
-            export CSGEB_HOME=$HOME/install_csg_eb
-
-      .. tab:: GPU
-
-         .. code:: bash
-            
-            ## load the necessary modules
-            module purge
-            module load vgl
-            module load grace
-            module load cmake/3.23.1
-            module load cuda/11.3
-            module load gnu/9.3.0
-            module load openmpi/4.0.4_gnu9.3
-
-
-            export MY_INSTALL_DIR=$HOME/mfix-exa_deps
-            export HYPRE_DIR=$MY_INSTALL_DIR/hypre
-            export HYPRE_HOME=$HYPRE_DIR
-
-            export ASCENT_DIR=$MY_INSTALL_DIR/ascent
-            export CONDUIT_DIR=$ASCENT_DIR
-
-            export CSGEB_HOME=$HOME/install_csg_eb
-
-
-#. Build MFIX-Exa
-
-   .. tabs::
-
-      .. tab:: CPU
-
-         .. code:: bash
-
-            make -C exec -j8 COMP=gnu \
-            USE_MPI=TRUE \
-            USE_OMP=FALSE \
-            USE_CUDA=FALSE \
-            USE_TINY_PROFILE=FALSE \
-            USE_CSG=TRUE \
-            USE_HYPRE=TRUE \
-            USE_ASCENT=TRUE \
-            USE_CONDUIT=TRUE \
-            DEBUG=FALSE
-
-      .. tab:: GPU
-
-         .. code:: bash
-
-            make -C exec -j8 COMP=gnu \
-            USE_MPI=TRUE \
-            USE_OMP=FALSE \
-            USE_CUDA=TRUE \
-            CUDA_ARCH=6.0 \
-            USE_TINY_PROFILE=FALSE \
-            USE_CSG=TRUE \
-            USE_HYPRE=TRUE \
-            USE_ASCENT=TRUE \
-            USE_CONDUIT=TRUE \
-            DEBUG=FALSE
