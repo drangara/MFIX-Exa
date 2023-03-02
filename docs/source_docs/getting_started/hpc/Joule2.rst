@@ -251,6 +251,7 @@ gmake
          export CONDUIT_DIR=$ASCENT_DIR
 
          export CSGEB_HOME=$CSG_LIB_DIR
+         export LDFLAGS="-lgmp -lmpfr -L$CSG_INSTALL_DIR -Wl,-rpath=$CSG_INSTALL_DIR"
 
          make -C exec -j8 \
               COMP=gnu \
@@ -276,6 +277,7 @@ gmake
          export CONDUIT_DIR=$ASCENT_DIR
 
          export CSGEB_HOME=$CSG_LIB_DIR
+         export LDFLAGS="-lgmp -lmpfr -L$CSG_INSTALL_DIR -Wl,-rpath=$CSG_INSTALL_DIR"
 
          make -C exec -j8 COMP=gnu \
               USE_MPI=TRUE \
