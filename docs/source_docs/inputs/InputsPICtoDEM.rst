@@ -20,6 +20,10 @@ The following inputs must be preceded by "pic2dem.":
 +------------------------+---------------------------------------------------+--------+---------+
 |                        | Description                                       | Type   | Default |
 +========================+===================================================+========+=========+
+| convert                | Name of the checkpoint file obtained from a       | string | ""      |
+|                        | previous PIC run, that will be converted to a DEM |        |         |
+|                        | checkpoint file                                   |        |         |
++------------------------+---------------------------------------------------+--------+---------+
 | refinement_ratio       | The mesh refinement ratio that will be applied on | int    | 1       |
 |                        | each direction to obtain a refined mesh out of    |        |         |
 |                        | the one  read form the PIC checkpoint file        |        |         |
