@@ -1,6 +1,123 @@
 Interphase Coupling
 ===================
 
+Deposition scheme
+-----------------
+
+The following inputs must be preceded by "mfix."
+
++----------------------------+---------------------------------------------------+--------+-------------+
+|                            | Description                                       |   Type | Default     |
++============================+===================================================+========+=============+
+| deposition_scheme          | The algorithm that will be used to deposit        | String | 'trilinear' |
+|                            | particles quantities to the Eulerian grid         |        |             |
+|                            | Available methods are:                            |        |             |
+|                            |                                                   |        |             |
+|                            | * 'centroid'                                      |        |             |
+|                            | * 'trilinear'                                     |        |             |
+|                            | * 'true-dpvm' divided particle volume method      |        |             |
+|                            | * 'trilinear-dpvm-square' dpvm with square filter |        |             |
++----------------------------+---------------------------------------------------+--------+-------------+
+| deposition_scale_factor    | The deposition scale factor. Only applies to      | Real   | 1.0         |
+|                            | 'true-dpvm' and 'trilinear-dpvm-square' methods.  |        |             |
+|                            | Its value must be in the interval [0, dx/2],      |        |             |
+|                            | where dx is the cell edge size.                   |        |             |
++----------------------------+---------------------------------------------------+--------+-------------+
+| deposition_diffusion_coeff | If a positive value is set, a diffusion equation  | Real   | -1.0        |
+|                            | with this diffusion coefficient is solved to      |        |             |
+|                            | smooth deposited quantities.                      |        |             |
++----------------------------+---------------------------------------------------+--------+-------------+
+
+In the following subsections, the four possible deposition methods are briefly
+described and illustrated.
+
+
+Centroid
+~~~~~~~~
+In the centroid deposition scheme, particles' quantities are deposited only to
+the Eulerian grid cell to which the particle's center belongs.
+
+.. raw:: latex
+
+   \begin{center}
+
+   .. _fig:basics:amrgrids:
+
+.. figure:: ./figures/centroid.jpg
+   :height: 2in
+
+   Example of centroid deposition.
+
+.. raw:: latex
+
+   \end{center}
+
+
+Trilinear
+~~~~~~~~~
+In the trilinear deposition scheme, particles' quantities are deposited linearly
+to the eight Eulerian grid cells that surround its center.
+
+.. raw:: latex
+
+   \begin{center}
+
+   .. _fig:basics:amrgrids:
+
+.. figure:: ./figures/trilinear.jpg
+   :height: 2in
+
+   Example of trilinear deposition.
+
+.. raw:: latex
+
+   \end{center}
+
+
+Divided Particle Volume Method (DPVM)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In the DPVM method, particles' quantities are deposited to the Eulerian grid
+cells that they intersect, and the deposition weights are equal to the
+percentage of the particle' volume that intersects the given cell.
+
+.. raw:: latex
+
+   \begin{center}
+
+   .. _fig:basics:amrgrids:
+
+.. figure:: ./figures/dpvm.jpg
+   :height: 2in
+
+   Example of dpvm deposition.
+
+.. raw:: latex
+
+   \end{center}
+
+
+Square DPVM
+~~~~~~~~~~~
+In the square DPVM method, particles' quantities are deposited to the Eulerian
+grid similarly to the DPVM method, but with a filter applied to the deposition
+scheme.
+
+.. raw:: latex
+
+   \begin{center}
+
+   .. _fig:basics:amrgrids:
+
+.. figure:: ./figures/square_dpvm.jpg
+   :height: 2in
+
+   Example of square dpvm deposition.
+
+.. raw:: latex
+
+   \end{center}
+
+
 Drag
 ----
 
@@ -12,7 +129,7 @@ The following inputs must be preceded by "mfix."
 | drag_type         | Which drag model to use                                               | String      | None      |
 +-------------------+-----------------------------------------------------------------------+-------------+-----------+
 
-The options currently supported in mfix are :cpp:`WenYu`, :cpp:`Gidaspow`, :cpp:`BVK2`, or :cpp:`UserDrag`.
+The options currently supported in mfix are :c++:`WenYu`, :c++:`Gidaspow`, :c++:`BVK2`, or :c++:`UserDrag`.
 
 If one of these is not specified, the code will abort with
 
@@ -26,7 +143,7 @@ The drag models are defined in src/src_des/des_drag_K.H
 
 If the user wishes to use their own drag model, they must
 
-  * specify :cpp:`mfix.drag_type = UserDrag` in the inputs file
+  * specify :c++:`mfix.drag_type = UserDrag` in the inputs file
 
   * provide the code in the ComputeDragUser routine in a local usr_drag.cpp file.
     An example can be found in tests/DEM06-x.
@@ -145,7 +262,7 @@ The following inputs must be preceded by "mfix."
 | convection_type   | Which HTC model to use          | String      | RanzMarshall |
 +-------------------+---------------------------------+-------------+--------------+
 
-The options currently supported in mfix are :cpp:`RanzMarshall` (default) and :cpp:`Gunn`. 
+The options currently supported in mfix are :c++:`RanzMarshall` (default) and :c++:`Gunn`. 
 In both models the HTC is determined from a Nusslet number corelation. 
 
 The RanzMarshall Nusselt number correlation is defined as: 
