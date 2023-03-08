@@ -380,6 +380,18 @@ prior to following any of the full build instructions above.
       make -j8 install
       popd
 
+#. CGAL
+
+   .. code:: bash
+
+      git clone --depth 1 --branch v5.3 https://github.com/CGAL/cgal
+      pushd cgal/
+      cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$CSG_INSTALL_DIR
+      cd build/
+      make -j8 install
+      popd
+
+
 #. PEGTL
 
    .. code:: bash
