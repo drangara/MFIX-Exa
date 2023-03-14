@@ -320,6 +320,13 @@ prior to following any of the full build instructions above.
       export FC=$(which gfortran)
       mkdir $HOME/scratch && cd $HOME/scratch 
 
+.. note:: 
+   
+   For whatever reason, building hypre with GPU support does not like this. 
+   So if you are building everything all at once, start with hypre with cuda 
+   and then set your compilers and build the rest (including hypre without cuda).
+   
+
 #. HYPRE
 
    .. tabs::
