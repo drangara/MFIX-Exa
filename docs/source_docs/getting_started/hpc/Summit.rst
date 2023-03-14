@@ -122,8 +122,8 @@ cmake
                -DMFIX_CSG=no \
                -DMFIX_HYPRE=no \
                -DMFIX_GPU_BACKEND=CUDA \
-               -DAMReX_CUDA_ARCH=6.0 \
-               -DCMAKE_CUDA_ARCHITECTURES="60" \
+               -DAMReX_CUDA_ARCH=7.0 \
+               -DCMAKE_CUDA_ARCHITECTURES="70" \
                -DGPUS_PER_SOCKET=1 \
                -DGPUS_PER_NODE=2 \
                -DAMReX_TINY_PROFILE=no \
@@ -199,8 +199,8 @@ cmake
                -DAMReX_ASCENT=yes \
                -DAMReX_CONDUIT=yes \
                -DMFIX_GPU_BACKEND=CUDA \
-               -DAMReX_CUDA_ARCH=6.0 \
-               -DCMAKE_CUDA_ARCHITECTURES="60" \
+               -DAMReX_CUDA_ARCH=7.0 \
+               -DCMAKE_CUDA_ARCHITECTURES="70" \
                -DGPUS_PER_SOCKET=1 \
                -DGPUS_PER_NODE=2 \
                -DAMReX_TINY_PROFILE=no \
@@ -288,13 +288,13 @@ gmake
          export CONDUIT_DIR=$ASCENT_DIR
 
          export CSGEB_HOME=$CSG_LIB_DIR
-         export LDFLAGS="-lgmp -lmpfr -L$CSG_INSTALL_DIR -Wl,-rpath=$CSG_INSTALL_DIR"
+         export LDFLAGS="-lmpfr -L$CSG_INSTALL_DIR/lib -Wl,-rpath=$CSG_INSTALL_DIR"
 
          make -C exec -j8 COMP=gnu \
               USE_MPI=TRUE \
               USE_OMP=FALSE \
               USE_CUDA=TRUE \
-              CUDA_ARCH=6.0 \
+              CUDA_ARCH=7.0 \
               USE_TINY_PROFILE=FALSE \
               USE_CSG=TRUE \
               USE_HYPRE=TRUE \
