@@ -144,7 +144,7 @@ cmake
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/ascent
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/conduit
 
-         export CSG_DIR=$CSG_INSTALL_DIR/csg-deps
+         export CSG_DIR=$CSG_INSTALL_DIR
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
 
          module load boost/1.77.0_gnu9.3
@@ -168,17 +168,17 @@ cmake
 
       .. code:: bash
 
-         export HYPRE_DIR=$HYPRE_INSTALL_DIR/hypre
+         export HYPRE_DIR=$HYPRE_INSTALL_DIR
          export HYPRE_ROOT=$HYPRE_DIR
          export HYPRE_LIBRARIES=$HYPRE_DIR/lib
          export HYPRE_INCLUDE_DIRS=$HYPRE_DIR/include
 
-         export ASCENT_DIR=$ASCENT_INSTALL_DIR/ascent
+         export ASCENT_DIR=$ASCENT_INSTALL_DIR
          export CONDUIT_DIR=$ASCENT_DIR
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/ascent
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/conduit
 
-         export CSG_DIR=$CSG_INSTALL_DIR/csg-deps
+         export CSG_DIR=$CSG_INSTALL_DIR
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
 
          module load boost/1.77.0_gnu9.3
