@@ -11,10 +11,10 @@ Follow the guide here instead of the generic instructions.
    :caption: DOE Systems
    :maxdepth: 1
 
+   hpc/Summit
    hpc/Crusher
    hpc/Perlmutter
    hpc/Polaris
-   hpc/Summit
 
 
 .. toctree::

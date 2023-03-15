@@ -11,8 +11,8 @@ review the general notes below and `Basics`_ section first.
   You may have to decrease this value if there is high traffic 
   or you may want to increase this value if you are on a compute 
   node interactively. 
-* The cmake instructions compile to a `build` directory. 
-  The gmake instructions compile to a `exec` directory. 
+* The cmake instructions compile to a ``build`` directory. 
+  The gmake instructions compile to a ``exec`` directory. 
 * For the dependencies, it is assumed that you have set the 
   following environment variables:
 
@@ -26,9 +26,9 @@ review the general notes below and `Basics`_ section first.
   to a path that you have read/write access to. 
   You will need to recall these paths later if you want to build 
   MFIX-Exa with the optional dependencies. 
-* After building the `mfix` executable (with cmake), you can 
+* After building the ``mfix`` executable (with cmake), you can 
   build the PIC-to-DEM restarter app by executing the following command 
-  in the `build` directory
+  in the ``build`` directory
 
   .. code:: bash
 
@@ -86,7 +86,7 @@ To build MFIX-Exa with hypre, csg and/or ascent dependencies,
 you first need to build and install these libraries and their dependencies.
 Instructions on building the necessary dependencies are below 
 and should be successfully installed first. There are two primary 
-methods of building the code `cmake` and `gmake` which are provided 
+methods of building the code ``cmake`` and ``gmake`` which are provided 
 seperately below.  
 
 cmake
@@ -406,7 +406,7 @@ prior to following any of the full build instructions above.
 #. CSG EB library  (**gmake**) 
 
    For the gmake install instructions, you need to install
-   `libcsgeb` to `$CSG_LIB_DIR` using either cmake or gmake:
+   ``libcsgeb`` to ``$CSG_LIB_DIR`` using either cmake or gmake:
 
    .. tabs::
 
@@ -499,13 +499,13 @@ Running Jobs
 
 Common Slurm commands:
 
-* **sinfo** see available/allocated resources
-* **sbatch runit_cpu.sh** submit a cpu job to the queue
-* **squeue -u USER** check job status of user USER
-* **squeue -p PARTITION** check job status of partition PARTITION
-* **scancel JOBID** kill a job with id JOBID
-* **salloc -N 1 -p gpu** grab a GPU node interactively (for up to 48 hrs) 
-* **salloc -N 2 -p dev -q dev** grab two development nodes (for up to 2 hrs)
+* ``sinfo`` see available/allocated resources
+* ``sbatch runit_cpu.sh`` submit a cpu job to the queue
+* ``squeue -u USER`` check job status of user USER
+* ``squeue -p PARTITION`` check job status of partition PARTITION
+* ``scancel JOBID`` kill a job with id JOBID
+* ``salloc -N 1 -p gpu`` grab a GPU node interactively (for up to 48 hrs) 
+* ``salloc -N 2 -p dev -q dev`` grab two development nodes (for up to 2 hrs)
 
 Example run scripts: 
 

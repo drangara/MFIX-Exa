@@ -7,13 +7,13 @@ review the general notes below and `Basics`_ section first.
 * To access Summit, you will need an
   `OLCF account <https://my.olcf.ornl.gov/account-application-new>`_
   and an RSA token. 
-* The name of hte MFIX-Exa account is `cfd122` 
-* These instructions build MFIX-Exa on the login nodes using `-j8` CPUs. 
+* The name of hte MFIX-Exa account is ``cfd122`` 
+* These instructions build MFIX-Exa on the login nodes using ``-j8`` CPUs. 
   You may have to decrease this value if there is high traffic 
   or you may want to increase this value if you are on a compute 
   node interactively. 
-* The cmake instructions compile to a `build` directory. 
-  The gmake instructions compile to a `exec` directory. 
+* The cmake instructions compile to a ``build`` directory. 
+  The gmake instructions compile to a ``exec`` directory. 
 * For the dependencies, it is assumed that you have set the 
   following environment variables:
 
@@ -27,9 +27,9 @@ review the general notes below and `Basics`_ section first.
   to a path that you have read/write access to. 
   You will need to recall these paths later if you want to build 
   MFIX-Exa with the optional dependencies. 
-* After building the `mfix` executable (with cmake), you can 
+* After building the ``mfix`` executable (with cmake), you can 
   build the PIC-to-DEM restarter app by executing the following command 
-  in the `build` directory
+  in the ``build`` directory
 
   .. code:: bash
 
@@ -67,7 +67,7 @@ following modules
     module load gcc/9.3.0
 
 Do **NOT** purge your default modules. You do not need to load 
-an MPI module, this is handled by the preloaded `spectrum-mpi` module.
+an MPI module, this is handled by the preloaded ``spectrum-mpi`` module.
 The GPU-enabled builds additionally require
 
 .. code:: bash 
@@ -87,7 +87,7 @@ To build MFIX-Exa with hypre, csg and/or ascent dependencies,
 you first need to build and install these libraries and their dependencies.
 Instructions on building the necessary dependencies are below 
 and should be successfully installed first. There are two primary 
-methods of building the code `cmake` and `gmake` which are provided 
+methods of building the code ``cmake`` and ``gmake`` which are provided 
 seperately below.  
 
 cmake
@@ -411,7 +411,7 @@ prior to following any of the full build instructions above.
 #. CSG EB library  (**gmake**) 
 
    For the gmake install instructions, you need to install
-   `libcsgeb` to `$CSG_LIB_DIR` using either cmake or gmake:
+   ``libcsgeb`` to ``$CSG_LIB_DIR`` using either cmake or gmake:
 
    .. tabs::
 
@@ -509,13 +509,13 @@ Running Jobs
 
 Common Slurm commands:
 
-* **bsub runit_cpu.sh** submit a cpu job to the queue
-* **bjobs -u USER** check job status of user USER
-* **bkill JOBID** kill a job with id JOBID
-* **bsub -W 0:20 -nnodes 1 -P <ALLOC>** grab a node interactively for 20 minutes 
+* ``bsub runit_cpu.sh`` submit a cpu job to the queue
+* ``bjobs -u USER`` check job status of user USER
+* ``bkill JOBID`` kill a job with id JOBID
+* ``bsub -W 0:20 -nnodes 1 -P <ALLOC>`` grab a node interactively for 20 minutes 
 
 Example run scripts for GPU is below. For CPU-only, 
-you remove `module load cuda`, set `--gpu_per_rs 0` and remove `--bind packed:1` 
+you remove ``module load cuda``, set ``--gpu_per_rs 0`` and remove ``--bind packed:1`` 
 from the run line. 
 
 .. code:: bash
