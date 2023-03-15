@@ -17,10 +17,12 @@
     <script src="js/skel.min.js"></script>
     <script src="js/skel-layers.min.js"></script>
     <script src="js/init.js"></script>
+    <script src="js/slider.js"></script>
     <noscript>
       <link rel="stylesheet" href="css/skel.css" />
       <link rel="stylesheet" href="css/style.css" />
       <link rel="stylesheet" href="css/style-xlarge.css" />
+      <link type="text/css" href="css/slider.css" rel="stylesheet" />
     </noscript>
   </head>
   <body>
@@ -60,6 +62,46 @@
         <p>
 
 END TEMPLATE-->
+
+
+        <header class="major">
+          <h2>PSRI Half-bed</h2>
+          <p>Penetration of horizontal jets into a slightly fluidized bed</p>
+        </header>
+        <div class="row 50% uniform">
+          <div class="slider-container">
+            <div class="image before" style="background-image:url('gallery_images/psri_halfbed_1mm-ceramic_slightly_contourFr_exp.png');"></div>
+            <div class="image after" style="background-image:url('gallery_images/psri_halfbed_1mm-ceramic_slightly_contourFr_sim.png');"></div>
+
+             <input type="range" class="slider" min="1" max="100" value="50" />
+            <div class="slider-button"></div>
+          </div>
+          <div class="8u$ 12u(small)">
+            A unique experiment was designed at
+            <a href="https://psri.org"> Particulate Solids Research Inc.,</a>
+            in which a circular fluidized bed is essentially cut in half,
+            with a flat front plane for easy visual inspection.
+            Four horizontal air jets penetrate the bed, two on either side,
+            which can be manually inserted into the bed.
+            In this experiment, only the bottom two jets are operated near 200 m/s
+            and pulled flush with the wall. The solid material in the bed is (nominally)
+            1 mm ceramic beads which are fluidized (from below) by a distributor
+            slightly above minimum fluidization. High-speed video is records the
+            jet behavior at the wall which is used to measure u-v particle velocity
+            profiles at the face, non-dimensionalized into a Froude number.
+            The experiment is modeled with MFIX-Exa
+            using a calibrated Syamlal and O'Brien drag model.
+            Both simulation and experiment are time averaged for six seconds.
+            <p><p>
+
+            For more details see the
+            <a href="https://www.osti.gov/biblio/1898116">APS DFD presentation</a>
+            of this work.
+
+            </p>
+          </div>
+        </div>
+        <p>
 
 
         <header class="major">
