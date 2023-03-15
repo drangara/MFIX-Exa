@@ -1,9 +1,6 @@
 OLCF Crusher TDS
 ================
 
-.. warning::
-   This does not currently work with ascent. 
-
 If this is your first time building MFIX-Exa on Joule2, please 
 review the general notes below and `Basics`_ section first.
 
@@ -38,6 +35,13 @@ review the general notes below and `Basics`_ section first.
   .. code:: bash
 
       cmake --build . --target pic2dem
+
+
+.. warning::
+
+   MFIX-Exa currently experiences a floating point exception 
+   when running with ascent support. Make sure all of the 
+   fpe traps in your inputs are off.   
 
 
 Basics
