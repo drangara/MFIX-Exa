@@ -164,8 +164,7 @@ cmake
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/ascent
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/conduit
 
-         export CSG_DIR=$CSG_INSTALL_DIR/csg-deps
-         export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
+         export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_INSTALL_DIR
 
          cmake -DMFIX_MPI=yes \
                -DMFIX_OMP=no \
@@ -193,8 +192,7 @@ cmake
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/ascent
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$ASCENT_DIR/lib/cmake/conduit
 
-         export CSG_DIR=$CSG_INSTALL_DIR/csg-deps
-         export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
+         export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_INSTALL_DIR
 
          cmake -DMFIX_MPI=yes \
                -DMFIX_OMP=no \
@@ -394,7 +392,9 @@ prior to following any of the full build instructions above.
 
       git clone --depth 1 --branch v5.3 https://github.com/CGAL/cgal
       pushd cgal/
-      cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$CSG_INSTALL_DIR
+      cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$CSG_INSTALL_DIR \
+                          -DCMAKE_C_COMPILER=$(which cc) \
+                          -DCMAKE_CXX_COMPILER=$(which CC)
       cd build/
       make -j8 install
       popd
@@ -423,8 +423,7 @@ prior to following any of the full build instructions above.
 
             cd subprojects/csg-eb
 
-            export CSG_DIR=$CSG_INSTALL_DIR
-            export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
+            export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_INSTALL_DIR
 
             cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$CSG_LIB_DIR
             cd build
@@ -435,9 +434,9 @@ prior to following any of the full build instructions above.
          .. code:: bash
 
             make -C subprojects/csg-eb install DESTDIR=$CSG_LIB_DIR \
-            PEGTL_HOME=$CSG_DIR \
-            CGAL_HOME=$CSG_DIR \
-            CATCH2_HOME=$CSG_DIR \
+            PEGTL_HOME=$CSG_INSTALL_DIR \
+            CGAL_HOME=$CSG_INSTALL_DIR \
+            CATCH2_HOME=$CSG_INSTALL_DIR \
             ENABLE_CGAL=TRUE
 
 #. Conduit
