@@ -118,9 +118,7 @@ cmake
 
       .. code:: bash
 
-         cmake -DCMAKE_C_COMPILER=gcc \
-               -DCMAKE_CXX_COMPILER=g++ \
-               -DMFIX_MPI=yes \
+         cmake -DMFIX_MPI=yes \
                -DMFIX_OMP=no \
                -DMFIX_GPU_BACKEND=NONE \
                -DAMReX_TINY_PROFILE=no \
@@ -134,17 +132,14 @@ cmake
 
       .. code:: bash
 
-         cmake -DCMAKE_C_COMPILER=gcc \
-               -DCMAKE_CXX_COMPILER=g++ \
-               -DMFIX_MPI=yes \
+         cmake -DMFIX_MPI=yes \
                -DMFIX_OMP=no \
                -DMFIX_CSG=no \
                -DMFIX_HYPRE=no \
                -DMFIX_GPU_BACKEND=CUDA \
-               -DAMReX_CUDA_ARCH=6.0 \
-               -DCMAKE_CUDA_ARCHITECTURES="60" \
-               -DGPUS_PER_SOCKET=1 \
-               -DGPUS_PER_NODE=2 \
+               -DAMReX_CUDA_ARCH=8.0 \
+               -DGPUS_PER_SOCKET=4 \
+               -DGPUS_PER_NODE=4 \
                -DAMReX_TINY_PROFILE=no \
                -DCMAKE_BUILD_TYPE=Release \
                ../
