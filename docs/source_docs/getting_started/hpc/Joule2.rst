@@ -161,7 +161,7 @@ cmake
                -DMFIX_GPU_BACKEND=NONE \
                -DAMReX_TINY_PROFILE=no \
                -DCMAKE_BUILD_TYPE=Release \
-               ../mfix
+               ../
          make -j8
 
    .. tab:: GPU-full
@@ -200,7 +200,7 @@ cmake
                -DGPUS_PER_NODE=2 \
                -DAMReX_TINY_PROFILE=no \
                -DCMAKE_BUILD_TYPE=Release \
-               ../mfix
+               ../
          make -j8
 
 
@@ -422,7 +422,9 @@ prior to following any of the full build instructions above.
             export CSG_DIR=$CSG_INSTALL_DIR
             export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
 
-            cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$CSG_LIB_DIR
+            cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$CSG_LIB_DIR \
+                                -DCMAKE_BUILD_TYPE=Release
+
             cd build
             make -j8 install
 
@@ -489,7 +491,9 @@ prior to following any of the full build instructions above.
             -DENABLE_PYTHON=OFF \
             -DENABLE_DOCS=OFF \
             -DBUILD_SHARED_LIBS=ON \
-            -DCMAKE_BUILD_TYPE=Release 
+            -DCMAKE_BUILD_TYPE=Release \
+            -DENABLE_GTEST=OFF \
+            -DENABLE_TESTS=OFF
       make -j8 install
       popd
 

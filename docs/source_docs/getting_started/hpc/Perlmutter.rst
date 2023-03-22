@@ -420,7 +420,9 @@ prior to following any of the full build instructions above.
 
             export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_INSTALL_DIR
 
-            cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$CSG_LIB_DIR
+            cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$CSG_LIB_DIR \
+                                -DCMAKE_BUILD_TYPE=Release
+
             cd build
             make -j8 install
 
@@ -486,7 +488,9 @@ prior to following any of the full build instructions above.
             -DENABLE_PYTHON=OFF \
             -DENABLE_DOCS=OFF \
             -DBUILD_SHARED_LIBS=ON \
-            -DCMAKE_BUILD_TYPE=Release 
+            -DCMAKE_BUILD_TYPE=Release \
+            -DENABLE_GTEST=OFF \
+            -DENABLE_TESTS=OFF
       make -j8 install
       popd
 
@@ -512,52 +516,43 @@ Example run scripts:
       .. code:: bash
 
          #!/bin/bash
-         #SBATCH --job-name build_mfix-exa
+         #SBATCH --job-name run-mfix-exa
          #SBATCH -o stdout.%x-%j
          #SBATCH -e stderr.%x-%j
          #SBATCH --account=<ACCOUNT>
-         ###SBATCH --qos=<QOS>
+         #SBATCH --qos=<QOS>
          #SBATCH --constraint=cpu
-         #SBATCH --time=00:20:00
-         #SBATCH --nodes=1
+         #SBATCH --time=00:02:00
+         #SBATCH --nodes=2
+         #SBATCH --ntasks-per-node=16
 
-         # load needed modules 
-         # NOTE: DONT PURGE AND RESET
+         # load modules used for build 
          module load PrgEnv-gnu/8.3.3
-         module load cudatoolkit/11.5
          module load cmake/3.22.0
 
-         # compiler environment hints
-         export CC=cc
-         export CXX=CC
-         export FC=ftn
-
-         ## make
-         cmake -DMFIX_MPI=yes \
-               -DMFIX_OMP=no \
-               -DMFIX_CSG=no \
-               -DMFIX_HYPRE=no \
-               -DAMReX_TINY_PROFILE=yes \
-               -DCMAKE_BUILD_TYPE=Release \
-               ../mfix
-         make -j 32
+         srun -n 32 --cpu-bind=cores -c 16 ./mfix inputs > screen.txt
 
    .. tab:: GPU
 
       .. code:: bash
 
          #!/bin/bash
-         #SBATCH --job-name build_mfix-exa
+         #SBATCH --job-name run-mfix-exa
          #SBATCH -o stdout.%x-%j
          #SBATCH -e stderr.%x-%j
          #SBATCH --account=<ACCOUNT>
-         ###SBATCH --qos=<QOS>
+         #SBATCH --qos=<QOS>
          #SBATCH --constraint=gpu
-         #SBATCH --time=00:20:00
-         #SBATCH --nodes=1
+         #SBATCH --time=00:02:00
+         #SBATCH --nodes=2
+         #SBATCH --ntasks-per-node=4  #fixed unless --ntasks/4 is non-int
+         #SBATCH --cpus-per-task=32   #fixed
+         #SBATCH --gpus-per-task=1    #fixed
+         #SBATCH --gpu-bind=single:1  #fixed
 
-         # load needed modules 
-         # NOTE: DONT PURGE AND RESET
+         nrs=8
+
+         # load modules used for build 
          module load PrgEnv-gnu/8.3.3
          module load cudatoolkit/11.5
          module load cmake/3.22.0
@@ -568,26 +563,4 @@ Example run scripts:
          # necessary to use CUDA-Aware MPI and run a job
          export CRAY_ACCEL_TARGET=nvidia80
 
-         # optimize CUDA compilation for A100
-         export AMREX_CUDA_ARCH=8.0
-
-         # compiler environment hints
-         export CC=cc
-         export CXX=CC
-         export FC=ftn
-         export CUDACXX=$(which nvcc)
-         export CUDAHOSTCXX=CC
-
-         ## make
-         cmake -DMFIX_MPI=yes \
-               -DMFIX_OMP=no \
-               -DMFIX_CSG=no \
-               -DMFIX_HYPRE=no \
-               -DMFIX_GPU_BACKEND=CUDA \
-               -DAMReX_CUDA_ARCH=8.0 \
-               -DGPUS_PER_SOCKET=4 \
-               -DGPUS_PER_NODE=4 \
-               -DAMReX_TINY_PROFILE=yes \
-               -DCMAKE_BUILD_TYPE=Release \
-               ../mfix
-         make -j 32
+         srun -n $nrs -G $nrs -c 1 --gpus-per-task 1 --gpu-bind=single:1 ./mfix inputs > screen.txt
