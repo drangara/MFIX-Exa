@@ -5,7 +5,7 @@ If this is your first time building MFIX-Exa on Polaris, please
 review the general notes below and `Basics`_ section first.
 
 * The documentation for this system can be found `here. <https://docs.alcf.anl.gov/polaris/getting-started/>`_
-* olaris can be accessed from a system with ssh client installed. These connections also work from NETL's SciLAN and Joule:
+* Polaris can be accessed from a system with ssh client installed. These connections also work from NETL's SciLAN and Joule:
 
   .. code:: bash
 

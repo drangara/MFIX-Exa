@@ -170,7 +170,7 @@ cmake
                -DMFIX_GPU_BACKEND=NONE \
                -DAMReX_TINY_PROFILE=no \
                -DCMAKE_BUILD_TYPE=Release \
-               ../mfix
+               ../
          make -j8
 
    .. tab:: GPU-full
@@ -201,7 +201,7 @@ cmake
                -DGPUS_PER_NODE=4 \
                -DAMReX_TINY_PROFILE=no \
                -DCMAKE_BUILD_TYPE=Release \
-               ../mfix
+               ../
          make -j8
 
 
