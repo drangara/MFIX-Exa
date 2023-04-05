@@ -16,15 +16,9 @@ The following inputs must be preceded by "mfix." and control checkpoint/restart.
 | check_per_approx        | Frequency of checkpoint output in simulation time;                    |    Real     | 0         |
 |                         | if 0 then no checkpoints will be written                              |             |           |
 +-------------------------+-----------------------------------------------------------------------+-------------+-----------+
+| check_walltime_interval | Frequency of checkpoint output in runtime (HH:MM:SS)                  |  String     | ""        |
++-------------------------+-----------------------------------------------------------------------+-------------+-----------+
 | check_file              | Prefix to use for checkpoint output                                   |  String     | chk       |
-+-------------------------+-----------------------------------------------------------------------+-------------+-----------+
-| check_walltime_limit    | Write a check point file before the specified walltime (HH:MM:SS)     |    Real     | -1        |
-|                         | has been reached. For example, if mfix.check_walltime_limit = 0:10:00 |             |           |
-|                         | then a checkpoint file is written a little time before the job has    |             |           |
-|                         | reached 10 minutes of runtime                                         |             |           |
-+-------------------------+-----------------------------------------------------------------------+-------------+-----------+
-| check_walltime_buffer   | This is time subtracted to check_walltime_limit to avoid the job is   |    Real     | 300       |
-|                         | killed before mfix has completed writing the checkpoint file          |             |           |
 +-------------------------+-----------------------------------------------------------------------+-------------+-----------+
 | geom_chk_write          | When True, writes the EB geometry data into geom_chk_file             |  bool       | False     |
 |                         | and additionally, geom_refined_chk_file, if levelset                  |             |           |

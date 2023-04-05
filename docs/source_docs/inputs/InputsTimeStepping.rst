@@ -28,6 +28,19 @@ The following inputs must be preceded by "mfix.":
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
 | tcoll_ratio          | DEM timestep equals the min collision time divided by this value      |    Real     |   50.0       |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
+| walltime_limit       | Write a check point file before the specified walltime (HH:MM:SS)     |    String   |   ""         |
+|                      | has been reached. For example, if mfix.walltime_limit = 0:10:00, then |             |              |
+|                      | timestepping is terminated just before runtime has reached the fixed  |             |              |
+|                      | walltime, and the code performs a clean exit                          |             |              |
++----------------------+-----------------------------------------------------------------------+-------------+--------------+
+| walltime_buffer      | This time value, specified as HH:MM:SS, is used to determine whether  |    String   |   ""         |
+|                      | to plot a checkpoint file before the job is terminated by the value   |             |              |
+|                      | in walltime_limit. If job is terminated, a checkpoint file is written |             |              |
+|                      | starting at time walltime_limit minus walltime_buffer                 |             |              |
++----------------------+-----------------------------------------------------------------------+-------------+--------------+
+| clean_exit           | This input represents the name of a file that, if found in the run    |    String   |   ""         |
+|                      | folder, makes the code stop and perform a clean exit                  |             |              |
++----------------------+-----------------------------------------------------------------------+-------------+--------------+
 
 The following inputs must be preceded by "mfix." and are only relevant if running a problem to steady state.
 Currently, the criterion for setting "steady_state" to true is if "dt" is undefined in mfix.dat
