@@ -11,6 +11,7 @@ Follow the guide here instead of the generic instructions.
    :caption: DOE Systems
    :maxdepth: 1
 
+   hpc/Frontier
    hpc/Summit
    hpc/Crusher
    hpc/Perlmutter
