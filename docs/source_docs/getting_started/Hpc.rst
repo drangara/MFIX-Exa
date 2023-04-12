@@ -19,6 +19,13 @@ Follow the guide here instead of the generic instructions.
 
 
 .. toctree::
+   :caption: NSF Systems
+   :maxdepth: 1
+
+   hpc/Delta
+
+
+.. toctree::
    :caption: NETL Systems
    :maxdepth: 1
 
