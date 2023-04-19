@@ -478,7 +478,7 @@ prior to following any of the full build instructions above.
 
       git clone --recursive https://github.com/Alpine-DAV/ascent.git
       pushd ascent
-      git checkout v0.8.4
+      git checkout v0.9.0
       mkdir build && cd build/
       cmake -S ../src -DCMAKE_INSTALL_PREFIX=$ASCENT_INSTALL_DIR \
             -DCONDUIT_DIR=$ASCENT_INSTALL_DIR \
