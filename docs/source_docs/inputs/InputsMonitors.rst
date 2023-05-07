@@ -112,6 +112,12 @@ provides header information. The following inputs must be preceded by
 | [monitor].plot_per_approx     | Define the approximated simulation time at which saving  |  Real       | 0         |
 |                               | monitored data                                           |             |           |
 +-------------------------------+----------------------------------------------------------+-------------+-----------+
+| [monitor].output.openmode     | Sets the open mode for the monitor output file.          |  String     | "app"     |
+|                               | Admissible values are:                                   |             |           |
+|                               |                                                          |             |           |
+|                               | * "app" for appending to the file if it already exists   |             |           |
+|                               | * "trunc" for overwriting the output file if it exists   |             |           |
++-------------------------------+----------------------------------------------------------+-------------+-----------+
 | [monitor].output.setw         | Sets the field width to be used on output file           |  Int        | 0         |
 +-------------------------------+----------------------------------------------------------+-------------+-----------+
 | [monitor].output.setfill      | Sets the filling character for the output file           |  Char       | ''        |
