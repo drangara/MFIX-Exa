@@ -1,5 +1,13 @@
 .. MFIX-EXA documentation master file, created Thu Aug  2 12:19:39 2018.
 
+.. warning::
+   This documentation is a work in progress. 
+   It is reasonably complete and hopefully useful 
+   but is likely error prone and in places misleading.
+   Please report any errors to the 
+   `MFIX-Exa User Forum <https://mfix.netl.doe.gov/forum/c/mfix-exa>`_. 
+
+
 Welcome to MFIX-EXA's documentation!
 ====================================
 
