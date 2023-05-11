@@ -33,11 +33,6 @@ The following inputs must be preceded by "mfix.":
 |                      | average runtime needed for each step) then the simulation ends and    |             |              |
 |                      | a clean exit is performed                                             |             |              |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
-| walltime_buffer      | This time value, specified as HH:MM:SS, is used to determine whether  |    String   |   ""         |
-|                      | to plot a checkpoint file before the job is terminated by the value   |             |              |
-|                      | in walltime_limit. If job is terminated, a checkpoint file is written |             |              |
-|                      | starting at time walltime_limit minus walltime_buffer                 |             |              |
-+----------------------+-----------------------------------------------------------------------+-------------+--------------+
 | clean_exit           | This input represents the name of a file that, if found in the run    |    String   |   ""         |
 |                      | folder, makes the code stop and perform a clean exit                  |             |              |
 +----------------------+-----------------------------------------------------------------------+-------------+--------------+
