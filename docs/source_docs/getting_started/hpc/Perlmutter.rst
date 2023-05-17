@@ -50,21 +50,12 @@ review the general notes below and `Basics`_ section first.
 Basics
 ------
 
-Clone the source code
-~~~~~~~~~~~~~~~~~~~~~
+Source code
+~~~~~~~~~~~
    
-Before building, first clone the code, checkout the desired branch, 
-(the default is develop), update the submodules and create a build directory 
-(for cmake).
-
-.. code:: bash
-
-    git clone https://mfix.netl.doe.gov/gitlab/exa/mfix.git
-    cd mfix
-    git checkout develop
-    git submodule update --init
-    mkdir build && cd build/
-
+Before building, first obtain a copy of the source code
+following the instructions on the 
+`MFIX-Exa website. <https://mfix.netl.doe.gov/products/mfix-exa/download/>`_
 
 Modules
 ~~~~~~~
