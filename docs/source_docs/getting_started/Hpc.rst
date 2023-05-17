@@ -23,7 +23,7 @@ Follow the guide here instead of the generic instructions.
    :maxdepth: 1
 
    hpc/Delta
-
+   hpc/Bridges2
 
 .. toctree::
    :caption: NETL Systems
