@@ -1,5 +1,5 @@
 # MFIX-Exa
-This is the public face of the MFiX-Exa project, hosting the documentation,
+This is the public face of the MFIX-Exa project, hosting the documentation,
 gallery of results, etc. The website is: https://amrex-codes.github.io/MFIX-Exa/
 
 ## Editing

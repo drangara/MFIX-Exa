@@ -1,4 +1,4 @@
-.. MFIX-EXA documentation master file, created Thu Aug  2 12:19:39 2018.
+.. MFIX-Exa documentation master file, created Thu Aug  2 12:19:39 2018.
 
 .. warning::
    This documentation is a work in progress. 
@@ -8,7 +8,7 @@
    `MFIX-Exa User Forum <https://mfix.netl.doe.gov/forum/c/mfix-exa>`_. 
 
 
-Welcome to MFIX-EXA's documentation!
+Welcome to MFIX-Exa's documentation!
 ====================================
 
 MFIX-Exa is a new multiphase computational fluid dynamics (CFD) modeling tool
