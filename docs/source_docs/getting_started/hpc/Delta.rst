@@ -4,7 +4,7 @@ NCSA Delta
 .. warning:: 
 
    There is a known and, thus far, unresolved issue when building 
-   with GPU and hypre support. 
+   with cmake for GPU and hypre support. 
 
 If this is your first time building MFIX-Exa on Delta, please 
 review the general notes below and `Basics`_ section first.
@@ -110,9 +110,7 @@ cmake
 
       .. code:: bash
 
-         cmake -DCMAKE_C_COMPILER=gcc \
-               -DCMAKE_CXX_COMPILER=g++ \
-               -DMFIX_MPI=yes \
+         cmake -DMFIX_MPI=yes \
                -DMFIX_OMP=no \
                -DMFIX_GPU_BACKEND=NONE \
                -DAMReX_TINY_PROFILE=no \
@@ -126,9 +124,7 @@ cmake
 
       .. code:: bash
 
-         cmake -DCMAKE_C_COMPILER=gcc \
-               -DCMAKE_CXX_COMPILER=g++ \
-               -DMFIX_MPI=yes \
+         cmake -DMFIX_MPI=yes \
                -DMFIX_OMP=no \
                -DMFIX_CSG=no \
                -DMFIX_HYPRE=no \
@@ -158,9 +154,7 @@ cmake
          export CSG_DIR=$CSG_INSTALL_DIR
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
 
-         cmake -DCMAKE_C_COMPILER=gcc \
-               -DCMAKE_CXX_COMPILER=g++ \
-               -DMFIX_MPI=yes \
+         cmake -DMFIX_MPI=yes \
                -DMFIX_OMP=no \
                -DMFIX_CSG=yes \
                -DMFIX_HYPRE=yes \
@@ -189,9 +183,7 @@ cmake
          export CSG_DIR=$CSG_INSTALL_DIR
          export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$CSG_DIR
 
-         cmake -DCMAKE_C_COMPILER=gcc \
-               -DCMAKE_CXX_COMPILER=g++ \
-               -DBoost_INCLUDE_DIR="$BOOST_ROOT/include" \
+         cmake -DBoost_INCLUDE_DIR="$BOOST_ROOT/include" \
                -DMFIX_MPI=yes \
                -DMFIX_OMP=no \
                -DMFIX_CSG=yes \
@@ -331,7 +323,6 @@ prior to following any of the full build instructions above.
                         --without-superlu \
                         --disable-bigint \
                         --without-openmp \
-                        --enable-shared  \
                         --with-MPI \
                         --with-cuda \
                         --with-gpu-arch='80' \
@@ -483,8 +474,7 @@ Common Slurm commands:
 * ``squeue -u USER`` check job status of user USER
 * ``squeue -p PARTITION`` check job status of partition PARTITION
 * ``scancel JOBID`` kill a job with id JOBID
-* ``salloc -N 1 -p gpu`` grab a GPU node interactively (for up to 48 hrs) 
-* ``salloc -N 2 -p dev -q dev`` grab two development nodes (for up to 2 hrs)
+  ``salloc -N 1 -p gpuA100x4 -A bbsj-delta-gpu --time=00:20:00  --exclusive --gpus-per-node=4`` grab a whole GPU node interactively for 20 minutes
 
 Example run script for GPU is below, 
 CPU-only runs have not been tested on this machine.  
