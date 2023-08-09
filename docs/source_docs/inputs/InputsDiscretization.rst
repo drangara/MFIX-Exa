@@ -3,20 +3,22 @@
 Discretization
 ==============
 
-+---------------------------+-----------------------------------------------------------------------+-------------+--------------+
-| Key                       | Description                                                           |   Type      | Default      |
-+===========================+=======================================================================+=============+==============+
-| advection_type            | Predictor-Corrector Method of Lines ("mol") or Godunov ("godunov")    |   String    |  Godunov     |
-+---------------------------+-----------------------------------------------------------------------+-------------+--------------+
-| redistribution_type       | Use flux ("FluxRedist"), state ("StateRedist") or no ("NoRedist")     |             |              |
-|                           | redistribution                                                        |   String    |  StateRedist |
-+---------------------------+-----------------------------------------------------------------------+-------------+--------------+
-| redistribute_nodal_proj   | Redistribute the velocity field after the nodal projection            |   Bool      |  False       |
-+---------------------------+-----------------------------------------------------------------------+-------------+--------------+
-| use_drag_coeff_in_proj_gp | Algebraically consistent p coeff in proj or (default) simplified form |   Bool      |  False       |
-+---------------------------+-----------------------------------------------------------------------+-------------+--------------+
-| use_drag_in_godunov       | Include a drag term in the Godunov flux or (default) not              |   Bool      |  False       |
-+---------------------------+-----------------------------------------------------------------------+-------------+--------------+
++---------------------------------+-----------------------------------------------------------------------+-------------+--------------+
+| Key                             | Description                                                           |   Type      | Default      |
++=================================+=======================================================================+=============+==============+
+| advection_type                  | Predictor-Corrector Method of Lines ("mol") or Godunov ("godunov")    |   String    |  Godunov     |
++---------------------------------+-----------------------------------------------------------------------+-------------+--------------+
+| redistribution_type             | Use flux ("FluxRedist"), state ("StateRedist") or no ("NoRedist")     |             |              |
+|                                 | redistribution                                                        |   String    |  StateRedist |
++---------------------------------+-----------------------------------------------------------------------+-------------+--------------+
+| redistribute_before_nodal_proj  | Redistribute the velocity field before the nodal projection           |   Bool      |  True        |
++---------------------------------+-----------------------------------------------------------------------+-------------+--------------+
+| redistribute_nodal_proj         | Redistribute the velocity field after the nodal projection            |   Bool      |  False       |
++---------------------------------+-----------------------------------------------------------------------+-------------+--------------+
+| use_drag_coeff_in_proj_gp       | Algebraically consistent p coeff in proj or (default) simplified form |   Bool      |  False       |
++---------------------------------+-----------------------------------------------------------------------+-------------+--------------+
+| use_drag_in_godunov             | Include a drag term in the Godunov flux or (default) not              |   Bool      |  False       |
++---------------------------------+-----------------------------------------------------------------------+-------------+--------------+
 
 Notes: The code was originally developed with MOL and FluxRedist. Preliminary 
 tests show that the new single-step Godunov method is roughly twice as fast as 
